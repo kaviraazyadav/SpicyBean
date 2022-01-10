@@ -1,0 +1,93 @@
+PODS:
+  - Alamofire (5.4.4)
+  - AppAuth (1.4.0):
+    - AppAuth/Core (= 1.4.0)
+    - AppAuth/ExternalUserAgent (= 1.4.0)
+  - AppAuth/Core (1.4.0)
+  - AppAuth/ExternalUserAgent (1.4.0)
+  - Cosmos (18.0.1)
+  - FBAEMKit (12.2.1):
+    - FBSDKCoreKit_Basics (= 12.2.1)
+  - FBSDKCoreKit (12.2.1):
+    - FBAEMKit (= 12.2.1)
+    - FBSDKCoreKit_Basics (= 12.2.1)
+  - FBSDKCoreKit_Basics (12.2.1)
+  - FBSDKLoginKit (12.2.1):
+    - FBSDKCoreKit (= 12.2.1)
+  - FSPagerView (0.8.3)
+  - GoogleSignIn (6.1.0):
+    - AppAuth (~> 1.4)
+    - GTMAppAuth (~> 1.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - GTMAppAuth (1.2.2):
+    - AppAuth/Core (~> 1.4)
+    - GTMSessionFetcher/Core (~> 1.5)
+  - GTMSessionFetcher/Core (1.7.0)
+  - IQKeyboardManagerSwift (6.5.9)
+  - Kingfisher (5.15.8):
+    - Kingfisher/Core (= 5.15.8)
+  - Kingfisher/Core (5.15.8)
+  - PromiseKit (6.15.3):
+    - PromiseKit/CorePromise (= 6.15.3)
+    - PromiseKit/Foundation (= 6.15.3)
+    - PromiseKit/UIKit (= 6.15.3)
+  - PromiseKit/CorePromise (6.15.3)
+  - PromiseKit/Foundation (6.15.3):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (6.15.3):
+    - PromiseKit/CorePromise
+  - QuickLayout (2.1.1)
+  - SwiftEntryKit (0.8.8):
+    - QuickLayout (= 2.1.1)
+
+DEPENDENCIES:
+  - Alamofire (~> 5.0)
+  - Cosmos (~> 18.0)
+  - FBSDKLoginKit
+  - FSPagerView
+  - GoogleSignIn
+  - IQKeyboardManagerSwift
+  - Kingfisher (~> 5.0)
+  - PromiseKit (~> 6.8)
+  - SwiftEntryKit (= 0.8.8)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - AppAuth
+    - Cosmos
+    - FBAEMKit
+    - FBSDKCoreKit
+    - FBSDKCoreKit_Basics
+    - FBSDKLoginKit
+    - FSPagerView
+    - GoogleSignIn
+    - GTMAppAuth
+    - GTMSessionFetcher
+    - IQKeyboardManagerSwift
+    - Kingfisher
+    - PromiseKit
+    - QuickLayout
+    - SwiftEntryKit
+
+SPEC CHECKSUMS:
+  Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
+  AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
+  Cosmos: 7dfaa3f52584ca5f94ab74b5c2e264019cc9f7f5
+  FBAEMKit: 4cea610d0bc1680572f2aad7b25db7a2f2690d82
+  FBSDKCoreKit: 5b1992fe65802ca26be7e68bc4fac5f59fa39908
+  FBSDKCoreKit_Basics: a6a92ca628e05f86f458a4721574c5ddfb058ba3
+  FBSDKLoginKit: 7467b7f988ca4fdf48f12a839bcfce4264752429
+  FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
+  GoogleSignIn: c90b5bec45e780f54c6a8e1e3c182a86e3dda69d
+  GTMAppAuth: ad5c2b70b9a8689e1a04033c9369c4915bfcbe89
+  GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
+  IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
+  Kingfisher: a3c03d702433fa6cfedabb2bddbe076fb8f2e902
+  PromiseKit: 3b2b6995e51a954c46dbc550ce3da44fbfb563c5
+  QuickLayout: 9af2b7fd89a6552828f51a5aba28d1bcdb8b340c
+  SwiftEntryKit: c50f25a14772713ded1591c852d1c1dc74c95b9e
+
+PODFILE CHECKSUM: 751da94700b4db46078ddddb78293c1b15015cd1
+
+COCOAPODS: 1.11.2
