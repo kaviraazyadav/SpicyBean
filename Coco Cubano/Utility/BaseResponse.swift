@@ -72,7 +72,7 @@ struct CategoryLists:Decodable {
     var cat_image : String?
     var cat_url_slag : String?
     var categoryImage : String?
-    var categoryName : String
+    var categoryName : String?
 }
 struct ProductsResponse:Decodable {
     var status : String?

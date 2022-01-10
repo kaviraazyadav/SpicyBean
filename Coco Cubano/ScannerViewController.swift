@@ -13,9 +13,21 @@ class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
     var scanned_data = ""
+    
+    @IBOutlet weak var cameraView: UIView!
+    
+    @IBOutlet weak var tableNoView: UIView!
+    
+    @IBOutlet weak var proceedToorder: UIButton!
+    @IBOutlet weak var tableNoTxt: UITextField!
+    
+    @IBOutlet var tableInfoView: UIView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.black
+        
+        
         captureSession = AVCaptureSession()
 
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }
@@ -48,10 +60,14 @@ class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
 
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         previewLayer.frame = view.layer.bounds
+        previewLayer.frame = view.layer.bounds
         previewLayer.videoGravity = .resizeAspectFill
         view.layer.addSublayer(previewLayer)
 
         captureSession.startRunning()
+        self.tableInfoView.frame = CGRect(x: 0, y: self.view.frame.size.height - 300, width: self.view.frame.size.width, height: 300)
+        self.view.addSubview(tableInfoView)
+        self.tableInfoView.roundCorners(corners:[.topLeft,.topRight], radius: 20)
     }
     func failed() {
         let ac = UIAlertController(title: "Scanning not supported", message: "Your device does not support scanning a code from an item. Please use a device with a camera.", preferredStyle: .alert)
@@ -67,6 +83,11 @@ class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
             captureSession.startRunning()
         }
     }
+    override func viewDidLayoutSubviews() {
+        self.tableNoView.viewBorder(radius: 5, color: .lightGray, borderWidth: 1)
+        self.proceedToorder.viewBorder(radius: 5, color: .clear, borderWidth: 0)
+        
+    }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -75,7 +96,7 @@ class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
             captureSession.stopRunning()
         }
         if self.scanned_data == ""{
-            NotificationCenter.default.post(name: .qr_code_scanned, object: nil , userInfo: ["data":nil])
+//            NotificationCenter.default.post(name: .qr_code_scanned, object: nil , userInfo: ["data":nil])
         }
 
     }
@@ -89,7 +110,8 @@ class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             found(code: stringValue)
             self.scanned_data = stringValue
-            NotificationCenter.default.post(name: .qr_code_scanned, object: nil , userInfo: ["data":stringValue])
+//            NotificationCenter.default.post(name: .qr_code_scanned, object: nil , userInfo: ["data":stringValue])
+            self.tableNoTxt.text = "Your Table Number Is : \(stringValue)"
         }
 
         dismiss(animated: true)
@@ -108,4 +130,18 @@ class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
         return .portrait
     }
 
+    @IBAction func tapOnBck(_ sender: Any) {
+        self.tableInfoView.removeFromSuperview()
+        goBack(vc: self)
+    }
+    
+    @IBAction func tapOnProceedToOrder(_ sender: Any) {
+        let table_no = self.tableNoTxt.text ?? ""
+        if table_no != ""{
+            table_number = table_no
+            goToNextVcThroughNavigation(currentVC: self, nextVCname: "CategoryViewController", nextVC: CategoryViewController.self)
+        }else{
+            AlertMsg(Msg: "Please scan qr code or enter table no", title: "Alert", vc: self)
+        }
+    }
 }

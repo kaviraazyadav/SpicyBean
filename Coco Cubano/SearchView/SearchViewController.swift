@@ -26,12 +26,22 @@ class SearchViewController: UIViewController,UITextFieldDelegate {
     var productQty = Int()
     var cartAmount = Double()
     var each_pro_price = Double()
+   var bag_count = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         self.seacrhTxt.delegate = self
         // Do any additional setup after loading the view.
+        if bag_count != ""{
+            self.badgeLbl.text = bag_count
+        }else{
+            self.badgeLbl.text = "0"
+        }
         self.notificationHits()
+        self.seacrhTxt.addTarget(self, action: #selector(SearchViewController.textFieldDidChange(_:)), for: .editingChanged)
+
     }
+    
+    
     func notificationHits(){
         NotificationCenter.default.addObserver(self, selector: #selector(addOnProductsSeacrh(notification:)), name: .addOnData_toSeacrhView, object: nil)
     }
@@ -43,16 +53,39 @@ class SearchViewController: UIViewController,UITextFieldDelegate {
             for item in data! {
                 self.cart_data.append(item)
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                AlertMsg(Msg: "Product added successfully", title: "Message", vc: self)
-            }
 
-//            if user_id != ""{
-//                self.callViewCartApi(param: ["user_id":user_id], from: "addon")
-//            }
+            if user_id != ""{
+                self.callViewCartApi(param: ["user_id":user_id], from: "addon")
+            }
         }
       
        
+    }
+    // View Cart Api
+    func callViewCartApi(param:[String:Any],from:String){
+//            showActivityIndicator(uiView: self)
+        let req = NetworkManger.api.postRequest(reqType:.view_cart, params: param, responseType: ViewCartResponse.self, vc: self)
+            req.done { (response:ViewCartResponse) in
+                hideActivityIndicator(uiView: self)
+                print(response)
+                let responseCode = response.responseCode
+                let message = response.message ?? ""
+                print(message)
+                if responseCode == "0"{
+                    if let temp_count = response.count{
+                        self.badgeLbl.text = "\(temp_count)"
+                    }
+                    if from == "addon"{
+                        AlertMsg(Msg: "Product updated successfully", title: "Message", vc: self)
+                    }
+                }else{
+//                 AlertMsg(Msg: message, title: "Alert", vc: self)
+                    self.badgeLbl.text = "0"
+                }
+            }.catch { (error) in
+                print(error)
+                hideActivityIndicator(uiView: self)
+            }
     }
     // Product Api
     func callProductListApi(param:[String:Any]){
@@ -84,8 +117,17 @@ class SearchViewController: UIViewController,UITextFieldDelegate {
     }
     override func viewDidLayoutSubviews() {
         searchView.viewBorder(radius: 5, color: .lightGray, borderWidth: 1)
+        self.badgeLbl.layer.cornerRadius = self.badgeLbl.frame.width/2
+        self.badgeLbl.layer.masksToBounds = true
+
     }
-    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+      if textField.text == ""{
+            self.products_arr.removeAll()
+            self.pro_table.tableViewReloadInMainThread()
+        }
+
+    }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool{
             let str = string
         if str != ""{
@@ -97,10 +139,6 @@ class SearchViewController: UIViewController,UITextFieldDelegate {
                let isBackSpace = strcmp(char, "\\b")
                if (isBackSpace == -92) {
                    print("Backspace was pressed")
-                   if textField.text!.count <= 3{
-                       self.products_arr.removeAll()
-                       self.pro_table.tableViewReloadInMainThread()
-                   }
                }
            }
             return true
@@ -149,7 +187,7 @@ class SearchViewController: UIViewController,UITextFieldDelegate {
                 print(message)
                 if responseCode == "0"{
                     AlertMsg(Msg: message, title: "Message", vc: self)
-//                    self.callViewCartApi(param: ["user_id":user_id], from: "")
+                    self.callViewCartApi(param: ["user_id":user_id], from: "")
 
                 }else{
                  AlertMsg(Msg: message, title: "Alert", vc: self)
@@ -179,7 +217,6 @@ class SearchViewController: UIViewController,UITextFieldDelegate {
                     self.cart_item.sales_price = item.sales_price
                     self.cart_item.item_image = item.item_image
                     self.cart_data.append(self.cart_item)
-                    self.badgeLbl.text = "\(self.cart_data.count)"
                     self.send_pro_to_cartServer(data: self.cart_item)
                 }
             }

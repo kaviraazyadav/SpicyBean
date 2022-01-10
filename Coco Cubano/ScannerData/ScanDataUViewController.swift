@@ -6,7 +6,6 @@
 //
 
 import UIKit
-var table_number = ""
 class ScanDataUViewController: UIViewController {
 
     @IBOutlet weak var nameView: UIView!
@@ -49,7 +48,7 @@ class ScanDataUViewController: UIViewController {
         let name = self.mobileTxt.text ?? ""
         let table_no = self.tableTxt.text ?? ""
         if email != "" && mobile != "" && name != "" && table_no != "" {
-            table_number = table_no
+//            table_number = table_no
             AlertWithAction(Msg: "Thanks for choosing table, let's make order", title: "Message", vc: self)
         }else{
             AlertMsg(Msg: "Please input all the fields", title: "Message", vc: self)

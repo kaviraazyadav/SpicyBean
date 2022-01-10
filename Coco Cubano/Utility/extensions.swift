@@ -9,7 +9,42 @@
 import Foundation
 import UIKit
 //import ExpandableLabel
+enum VerticalLocation: String {
+    case bottom
+    case top
+}
+
 extension UIView {
+    func dropShadow(color: UIColor, opacity: Float = 0.5, offSet: CGSize, radius: CGFloat = 1, scale: Bool = true) {
+        layer.masksToBounds = false
+        layer.shadowColor = color.cgColor
+        layer.shadowOpacity = opacity
+        layer.shadowOffset = offSet
+        layer.shadowRadius = radius
+
+        layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
+        layer.shouldRasterize = true
+        layer.rasterizationScale = scale ? UIScreen.main.scale : 1
+      }
+    
+    func addShadow(location: VerticalLocation, color: UIColor, opacity: Float, radius: CGFloat) {
+        switch location {
+        case .bottom:
+             addShadow(offset: CGSize(width: 0, height: 10), color: color, opacity: opacity, radius: radius)
+        case .top:
+            addShadow(offset: CGSize(width: 0, height: -10), color: color, opacity: opacity, radius: radius)
+        }
+    }
+
+    func addShadow(offset: CGSize, color: UIColor, opacity: Float, radius: CGFloat) {
+        self.layer.masksToBounds = false
+        self.layer.shadowColor = color.cgColor
+        self.layer.shadowOffset = offset
+        self.layer.shadowOpacity = opacity
+        self.layer.shadowRadius = radius
+    }
+
+
     func fadeIn(_ duration: TimeInterval = 1.0, delay: TimeInterval = 0.0, completion: @escaping ((Bool) -> Void) = {(finished: Bool) -> Void in}) {
         UIView.animate(withDuration: duration, delay: delay, options: UIView.AnimationOptions.curveEaseIn, animations: {
             self.alpha = 1.0
@@ -62,8 +97,8 @@ extension UIView {
     func circleViewWithShadow(){
         self.layer.masksToBounds = false
         self.layer.cornerRadius = self.frame.height/2
-        //            self.layer.borderWidth = 5
-        //            self.layer.borderColor = UIColor.white.cgColor
+                    self.layer.borderWidth = 1
+                    self.layer.borderColor = UIColor.lightGray.cgColor
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowOffset = CGSize(width: 1, height: 1)
         self.layer.shadowOpacity = 0.4
@@ -281,6 +316,7 @@ extension UIImageView {
         self.layer.shadowOpacity = 0.4
         self.clipsToBounds = false
     }
+    
 }
 extension UITextField {
     func makeCornerRound() {

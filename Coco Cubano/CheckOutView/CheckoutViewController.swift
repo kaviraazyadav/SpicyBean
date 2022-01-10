@@ -228,7 +228,7 @@ class CheckoutViewController: UIViewController{
         
         sender.inputAccessoryView = toolBar
         datePickerView.datePickerMode = .dateAndTime
-        datePickerView.minimumDate = minDate
+        datePickerView.minimumDate = currentDate
         datePickerView.maximumDate = currentDate
         datePickerView.preferredDatePickerStyle = .inline
         sender.inputView = datePickerView
@@ -238,7 +238,7 @@ class CheckoutViewController: UIViewController{
 
     @objc func handleDatePicker(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-mm-yyyy HH:mm"
+        dateFormatter.dateFormat = "DD-MM-YYYY HH:mm"
         delTimeTxt.text = dateFormatter.string(from: sender.date)
 
     }
@@ -328,39 +328,39 @@ class CheckoutViewController: UIViewController{
         let mobile = self.mobileTxt.text ?? ""
         let flat_no = self.streetTxt.text ?? ""
         let location = self.search_addressTxt.text ?? ""
-        let delivery_time = self.deliveryFee.text ?? ""
+        let delivery_time = self.delTimeTxt.text ?? ""
         if mode_of_delivery == "2"{
-            if name != "" && email != "" && mobile != "" && flat_no != "" && location != "" && delivery_time != "" {
-                self.calladdAddressListApi(param: ["customerId":userDefault.shared.getUserId(key: Constants.user_id),
-                    "first_name":name,
-                    "email":email,
-                    "mobile":mobile,
-                    "flatno":flat_no,
-                    "location":location,
-                    "landmark":"near test",
-                    "address":location,
-                    "userLat":"71.928282",
-                    "userLong":"79.93939",
-                    "note":self.commentTxtView.text ?? ""
-                    ])
-                self.movetoPayment()
+            if name != "" && email != "" && mobile != "" && flat_no != "" && location != "" {
+                if delivery_time != "" {
+                    self.calladdAddressListApi(param: ["customerId":userDefault.shared.getUserId(key: Constants.user_id),
+                        "first_name":name,
+                        "email":email,
+                        "mobile":mobile,
+                        "flatno":flat_no,
+                        "location":location,
+                        "landmark":"near test",
+                        "address":location,
+                        "userLat":"71.928282",
+                        "userLong":"79.93939",
+                        "note":self.commentTxtView.text ?? ""
+                        ])
+                    self.movetoPayment()
+                }else {
+                    AlertMsg(Msg: "Please enter delivery time", title: "Alert!", vc: self)
+                }
+              
             }else{
                 AlertMsg(Msg: "Please input all the fields", title: "Alert!", vc: self)
             }
-        }else{
+        } else if mode_of_delivery == "1"{
+            if delTimeTxt.text != "" {
+                self.movetoPayment()
+            }else {
+                AlertMsg(Msg: "Please enter pick up time", title: "Alert!", vc: self)
+            }
+        }
+        else{
             // for table top
-            self.calladdAddressListApi(param: ["customerId":userDefault.shared.getUserId(key: Constants.user_id),
-                "first_name":name,
-                "email":email,
-                "mobile":mobile,
-                "flatno":flat_no,
-                "location":location,
-                "landmark":"near test",
-                "address":location,
-                "userLat":"71.928282",
-                "userLong":"79.93939",
-                "note":self.commentTxtView.text ?? ""
-                ])
             self.movetoPayment()
         }
        
@@ -399,4 +399,23 @@ extension CheckoutViewController : UITextFieldDelegate {
             self.pickUpDate(delTimeTxt)
         }
     }
+}
+extension CheckoutViewController : UITextViewDelegate{
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if (commentTxtView.text == "Comments")
+        {
+            commentTxtView.text = nil
+            commentTxtView.textColor = UIColor.black
+        }
+    }
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if commentTxtView.text.isEmpty
+        {
+            commentTxtView.text = "Comments"
+            commentTxtView.textColor = UIColor.lightGray
+        }
+        textView.resignFirstResponder()
+    }
+
 }

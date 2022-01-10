@@ -324,7 +324,6 @@ func imageToBase64(image:UIImage){
 func AlertMsg(Msg : String, title : String, vc:UIViewController)
 {
     let alert = UIAlertController(title: title, message: Msg, preferredStyle: UIAlertController.Style.alert)
-    alert.view.tintColor = .green
     alert.addAction(UIAlertAction(title: "OK", style:.default, handler: nil))
     vc.present(alert, animated: false, completion:nil)
    

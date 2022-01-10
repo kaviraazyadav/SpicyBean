@@ -13,8 +13,12 @@ class ProductViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var badgeLbl: UILabel!
     @IBOutlet weak var searchView: UIView!
     
+   
+    @IBOutlet weak var catBtn: UIButton!
+    
     @IBOutlet weak var searchTxt: UITextField!
-    @IBOutlet weak var pro_table: UITableView!
+    @IBOutlet weak var
+pro_table: UITableView!
     var cat_id = ""
     var cat_name = ""
     var products_arr = [ProductLists]()
@@ -87,6 +91,7 @@ class ProductViewController: UIViewController,UITextFieldDelegate {
     }
 
     override func viewDidLayoutSubviews() {
+        catBtn.circleViewWithShadow()
         self.badgeLbl.layer.cornerRadius = self.badgeLbl.frame.width/2
         self.badgeLbl.layer.masksToBounds = true
         self.searchView.viewBorder(radius: 5, color: .lightGray, borderWidth: 1)
@@ -200,33 +205,32 @@ class ProductViewController: UIViewController,UITextFieldDelegate {
         }
 
         print(searchStr)
-
-        
-        let filteredArray = self.products_arr.filter({guestData -> Bool in
-            let searchLowercased = searchStr.uppercased()
-            let matches:[String?] = [guestData.item_name]
-            let nonNilElements = matches.compactMap { $0 }
-
-            for element in nonNilElements {
-                if element.uppercased().contains(searchLowercased) {
-                    return true
-                }
-            }
-            return false
-        })
-
-        
-        print(filteredArray)
-
-        if filteredArray.count > 0
-        {
+        if searchStr.count >= 2 {
             filter_products_arr.removeAll()
-            filter_products_arr = filteredArray
+            let filteredArray = self.products_arr.filter({guestData -> Bool in
+                let searchLowercased = searchStr.uppercased()
+                let matches:[String?] = [guestData.item_name]
+                let nonNilElements = matches.compactMap { $0 }
+
+                for element in nonNilElements {
+                    if element.uppercased().contains(searchLowercased) {
+                        return true
+                    }
+                }
+                return false
+            })
+            if filteredArray.count > 0 {
+                filter_products_arr = filteredArray
+            }
+
+        }else if searchStr.count >= 1{
+            self.filter_products_arr.removeAll()
+            self.filter_products_arr = self.products_arr
         }
-        else
-        {
-//            SearchData=AllData
-        }
+        
+        print(filter_products_arr)
+
+   
         self.pro_table.tableViewReloadInMainThread()
         return true
     }
@@ -333,7 +337,7 @@ class ProductViewController: UIViewController,UITextFieldDelegate {
 }
 extension  ProductViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.searchTxt.text != "" {
+        if self.searchStr != "" {
             return self.filter_products_arr.count
         }
         return self.products_arr.count
@@ -350,6 +354,7 @@ extension  ProductViewController : UITableViewDataSource {
             cell.plusBtn.tag = indexPath.row
             cell.minusBtn.tag = indexPath.row
             cell.plusMinusView.viewBorder(radius: 15, color: .lightGray, borderWidth: 1)
+            cell.addBtn.tag = indexPath.row
             if self.searchTxt.text != "" {
                 if let item_list = self.filter_products_arr[indexPath.row].item_list{
                     if item_list.count != 0 {
@@ -378,8 +383,4 @@ extension  ProductViewController : UITableViewDataSource {
            
             return cell
         }
-
-    
-    
-
 }

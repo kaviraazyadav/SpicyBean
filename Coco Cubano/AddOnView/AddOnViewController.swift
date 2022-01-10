@@ -89,18 +89,24 @@ var comes_from = ""
         let price = self.cart_item.sales_price ?? ""
         let qty = self.cart_item.pro_qty ?? ""
         let id = self.cart_item.id ?? ""
+        if self.addNoteTxt.text == "Add Notes for Chef"{
+            self.addNoteTxt.text = "Nothing"
+        }
         let userId = userDefault.shared.getUserId(key: Constants.user_id)
         let catId = self.cart_item.category_id ?? ""
         var addOnList = [String:Any]()
         var addonParam =  [[String:Any]]()
-        for record in self.arrSelectedData {
-            addOnList["addon_id"] = record.item_id
-            addOnList["addon_qty"] = record.add_on_qty
-            addOnList["addon_price"] = record.modifier_price
-            addOnList["note"] = "sampe"
-            addOnList["addon_name"] = record.modifier_name
-            addonParam.append(addOnList)
+        if let choosedAddOns = self.cart_item.item_list{
+            for record in choosedAddOns {
+                addOnList["addon_id"] = record.modifier_id
+                addOnList["addon_qty"] = record.add_on_qty
+                addOnList["addon_price"] = record.modifier_price
+                addOnList["note"] = self.addNoteTxt.text ?? ""
+                addOnList["addon_name"] = record.modifier_name
+                addonParam.append(addOnList)
+            }
         }
+       
         print("addOns",addonParam)
 
         self.callAddToCartApi(param: ["user_id":userId,
@@ -175,7 +181,11 @@ dismissController(vc: self)
         let cell = add_on_table.cellForRow(at: IndexPath(row: i, section: 0)) as! AddOnTableViewCell
         if arrSelectedIndex.contains(indexPath) {
             arrSelectedIndex = arrSelectedIndex.filter { $0 != indexPath}
-            arrSelectedData.remove(at: sender.tag)
+            for (index,item) in self.arrSelectedData.enumerated() {
+                if item.modifier_id == add_on_item.modifier_id {
+                    self.arrSelectedData.remove(at: index)
+                }
+            }
             cell.checkBtn.setImage(UIImage(named: "uncheck"), for: .normal)
         }
         else {
@@ -213,5 +223,24 @@ extension  AddOnViewController : UITableViewDataSource {
 
     
     
+
+}
+extension AddOnViewController : UITextViewDelegate{
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if (addNoteTxt.text == "Add Notes for Chef")
+        {
+            addNoteTxt.text = nil
+            addNoteTxt.textColor = UIColor.black
+        }
+    }
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if addNoteTxt.text.isEmpty
+        {
+            addNoteTxt.text = "Add Notes for Chef"
+            addNoteTxt.textColor = UIColor.lightGray
+        }
+        textView.resignFirstResponder()
+    }
 
 }

@@ -10,7 +10,14 @@ import FSPagerView
 import Kingfisher
 var user_id = ""
 var mode_of_delivery = ""
+var table_number = ""
 class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate {
+   
+    
+    @IBOutlet weak var cat_btn: UIButton!
+    @IBOutlet weak var tab_barView: UIView!
+    @IBOutlet weak var tab_barImg: UIImageView!
+    
     @IBOutlet weak var pagerView: FSPagerView!{
         didSet {
             self.pagerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "cell")
@@ -51,6 +58,7 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
     var cartAmount = Double()
     var each_pro_price = Double()
     var cart_item = CartProductLists()
+    var badge_count = ""
 
     
     override func viewDidLoad() {
@@ -106,16 +114,15 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
         let data = notification.userInfo!["data"] as? String
         print("reaction",data)
         if data != nil{
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                openPopUp(currentVC: self, nextVCname: "ScanDataUViewController", nextVC: ScanDataUViewController.self)
-            }
-        }else{
-            // del btn activated
-            self.deliveryBtn.backgroundColor = .white
-            self.pickUpBtn.backgroundColor = .clear
-            self.table_top.backgroundColor = .clear
-            mode_of_delivery = "2"
+            table_number = data ?? ""
         }
+//        else{
+//            // del btn activated
+//            self.deliveryBtn.backgroundColor = .white
+//            self.pickUpBtn.backgroundColor = .clear
+//            self.table_top.backgroundColor = .clear
+//            mode_of_delivery = "2"
+//        }
 
       
        
@@ -136,6 +143,7 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
     }
     
     override func viewDidLayoutSubviews() {
+        cat_btn.circleViewWithShadow()
         self.pagerView.viewBorder(radius: 10, color: .clear, borderWidth: 0)
         self.deliveryPickUpView.viewBorder(radius: 25, color: .clear, borderWidth: 0)
         self.deliveryBtn.viewBorder(radius: 22, color: .clear, borderWidth: 0)
@@ -155,7 +163,7 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
             let count = self.products_arr.count
             self.scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + CGFloat (Double(count) * 120))
             self.tableViewHeight.constant = CGFloat (Double(count) * 120)
-            self.contentViewHeight.constant = UIScreen.main.bounds.height + self.tableViewHeight.constant - 980
+            self.contentViewHeight.constant = self.view.frame.size.height + self.tableViewHeight.constant - 960
 
         }
 
@@ -282,6 +290,7 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
                 print(message)
                 if responseCode == "0"{
                     if let temp_count = response.count{
+                        self.badge_count = "\(temp_count)"
                         self.badgeLbl.text = "\(temp_count)"
                     }
                     if from == "addon"{
@@ -313,7 +322,9 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
    
     
     @IBAction func tapOnSearchBtn(_ sender: Any) {
-        goToNextVcThroughNavigation(currentVC: self, nextVCname: "SearchViewController", nextVC: SearchViewController.self)
+        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "SearchViewController") as! SearchViewController
+        vc.bag_count = self.badge_count
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     @IBAction func tapOnAddProBtn(_ sender: UIButton) {
         let item = self.products_arr[sender.tag]
@@ -417,7 +428,7 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
         self.deliveryBtn.backgroundColor = .clear
         self.pickUpBtn.backgroundColor = .clear
         self.table_top.backgroundColor = .white
-        goToNextVc(currentVC: self, nextVCname: "ScannerViewController", nextVC: ScannerViewController.self)
+        goToNextVcThroughNavigation(currentVC: self, nextVCname: "ScannerViewController", nextVC: ScannerViewController.self)
         mode_of_delivery = ""
     }
     

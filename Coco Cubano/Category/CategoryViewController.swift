@@ -22,6 +22,7 @@ class CategoryViewController: UIViewController,UITextFieldDelegate {
 
     var searchStr:String=""
 
+    @IBOutlet weak var cat_btn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.callCategoryListApi(param: ["":""])
@@ -77,6 +78,7 @@ class CategoryViewController: UIViewController,UITextFieldDelegate {
 
     
     override func viewDidLayoutSubviews() {
+        cat_btn.circleViewWithShadow()
         self.badgeLbl.layer.cornerRadius = self.badgeLbl.frame.width/2
         self.badgeLbl.layer.masksToBounds = true
         self.searchView.viewBorder(radius: 5, color: .lightGray, borderWidth: 1)
@@ -129,10 +131,11 @@ class CategoryViewController: UIViewController,UITextFieldDelegate {
         if searchStr.count >= 2{
             self.filter_category_list_arr.removeAll()
             for item in self.category_list_arr {
-                 let cat_name = item.categoryName
+                if let cat_name = item.categoryName {
                     if cat_name.contains(searchStr.uppercased()){
                         print("cat_name",cat_name)
                         self.filter_category_list_arr.append(item)
+                }
                     }
             }
         }else if searchStr.count >= 1{
@@ -211,15 +214,17 @@ extension CategoryViewController : UICollectionViewDataSource,UICollectionViewDe
         cell.alCatView.setCardView()
         cell.catimgSetView.setCardView()
         if searchStr != ""{
-             let cat_name = self.filter_category_list_arr[indexPath.row].categoryName
+            if  let cat_name = self.filter_category_list_arr[indexPath.row].categoryName{
                 cell.cat_name.text = cat_name
+            }
             
             if let cat_image  = self.filter_category_list_arr[indexPath.row].categoryImage{
                 showImgWithLink(imgUrl: cat_image, imgView: cell.catImg)
             }
         }else{
-             let cat_name = self.category_list_arr[indexPath.row].categoryName
+            if let cat_name = self.category_list_arr[indexPath.row].categoryName {
                 cell.cat_name.text = cat_name
+            }
             
             if let cat_image  = self.category_list_arr[indexPath.row].categoryImage{
                 showImgWithLink(imgUrl: cat_image, imgView: cell.catImg)

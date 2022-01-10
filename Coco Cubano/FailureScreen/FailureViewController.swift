@@ -20,6 +20,7 @@ class FailureViewController: UIViewController {
     
   
     @IBAction func tapOnShopAgain(_ sender: Any) {
+        goToNextVcThroughNavigation(currentVC: self, nextVCname: "ViewController", nextVC: ViewController.self)
     }
     
 }

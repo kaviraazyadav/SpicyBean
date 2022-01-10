@@ -58,7 +58,7 @@ class MyorderViewController: UIViewController {
                 }else{
                     self.myOrder_list_arr.removeAll()
                     self.myOrderTable.tableViewReloadInMainThread()
-                 AlertMsg(Msg: message, title: "Alert", vc: self)
+//                 AlertMsg(Msg: message, title: "Alert", vc: self)
                 }
             }.catch { (error) in
                 print(error)

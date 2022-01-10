@@ -139,17 +139,18 @@ class PaymentViewController: UIViewController {
                 if responseCode == "0"{
                     if let paymen_s = response.payment_status{
                         print("status:",paymen_s)
-                        if paymen_s == "success"{
+                        if paymen_s == "Paid"{
                             self.timer.invalidate()
-                            goToNextVc(currentVC: self, nextVCname: "SuccessViewController.self", nextVC: SuccessViewController.self)
-                        }else if paymen_s == "failure"{
+                            goToNextVcThroughNavigation(currentVC: self, nextVCname: "SuccessViewController", nextVC: SuccessViewController.self)
+                        }else if paymen_s == "Unpaid"{
                             self.timer.invalidate()
-                            goToNextVc(currentVC: self, nextVCname: "FailureViewController.self", nextVC: FailureViewController.self)
+                            goToNextVcThroughNavigation(currentVC: self, nextVCname: "FailureViewController", nextVC: FailureViewController.self)
 
-                        }else if paymen_s != ""{
-                            self.timer.invalidate()
-                            goToNextVc(currentVC: self, nextVCname: "FailureViewController.self", nextVC: FailureViewController.self)
+                        }else if paymen_s == "Pending"{
 
+                        }else{
+                            self.timer.invalidate()
+                            goToNextVcThroughNavigation(currentVC: self, nextVCname: "FailureViewController", nextVC: FailureViewController.self)
                         }
                     }
                 }else{
