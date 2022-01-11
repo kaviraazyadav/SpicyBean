@@ -95,10 +95,7 @@ class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
         if (captureSession?.isRunning == true) {
             captureSession.stopRunning()
         }
-        if self.scanned_data == ""{
-//            NotificationCenter.default.post(name: .qr_code_scanned, object: nil , userInfo: ["data":nil])
-        }
-
+  
     }
 
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
@@ -131,6 +128,9 @@ class ScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDele
     }
 
     @IBAction func tapOnBck(_ sender: Any) {
+        scanned_data = self.tableNoTxt.text ?? ""
+            NotificationCenter.default.post(name: .qr_code_scanned, object: nil , userInfo: ["data":scanned_data])
+
         self.tableInfoView.removeFromSuperview()
         goBack(vc: self)
     }

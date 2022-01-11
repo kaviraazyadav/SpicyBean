@@ -13,6 +13,8 @@ pod 'Alamofire', '~> 5.0'
 pod 'Kingfisher', '~> 5.0'
 pod 'GoogleSignIn'
 pod 'FBSDKLoginKit'
+pod 'Firebase/Analytics'
+pod 'Firebase/Crashlytics'
   # Pods for Coco Cubano
 
   target 'Coco CubanoTests' do

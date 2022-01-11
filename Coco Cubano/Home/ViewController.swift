@@ -67,7 +67,6 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
       
         mode_of_delivery = "2"
         searchBtn.contentHorizontalAlignment = .left
-
         self.notificationHits()
         self.deliveryBtn.backgroundColor = .white
         self.callBannerListApi(param: ["":""])
@@ -113,16 +112,16 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
         print(notification.userInfo as Any)
         let data = notification.userInfo!["data"] as? String
         print("reaction",data)
-        if data != nil{
+        if data != ""{
             table_number = data ?? ""
         }
-//        else{
-//            // del btn activated
-//            self.deliveryBtn.backgroundColor = .white
-//            self.pickUpBtn.backgroundColor = .clear
-//            self.table_top.backgroundColor = .clear
-//            mode_of_delivery = "2"
-//        }
+        else{
+            // del btn activated
+            self.deliveryBtn.backgroundColor = .white
+            self.pickUpBtn.backgroundColor = .clear
+            self.table_top.backgroundColor = .clear
+            mode_of_delivery = "2"
+        }
 
       
        
@@ -445,9 +444,9 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
     }
     
     @IBAction func tapOnViewAll(_ sender: Any) {
-        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "CategoryViewController") as! CategoryViewController
-        vc.cart_data = self.cart_lists
-        self.navigationController?.pushViewController(vc, animated: true)
+//        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "CategoryViewController") as! CategoryViewController
+//        vc.cart_data = self.cart_lists
+//        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func tapOnHomeBtn(_ sender: Any) {
