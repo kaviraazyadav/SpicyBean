@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
  *
  * This source code is licensed under the license found in the
@@ -8,6 +8,7 @@
 
 #import <FBSDKLoginKit/FBSDKDeviceLoginCodeInfo.h>
 #import <FBSDKLoginKit/FBSDKDeviceLoginManager.h>
+#import <FBSDKLoginKit/FBSDKDeviceLoginManagerDelegate.h>
 #import <FBSDKLoginKit/FBSDKDeviceLoginManagerResult.h>
 #import <FBSDKLoginKit/FBSDKLoginConstants.h>
 

@@ -40,6 +40,22 @@ struct CommonResponse:Codable {
     var outlet_id : Int?
     var customerId : String?
     var payment_status: String?
+    var Name : String?
+    var Email:String?
+}
+struct ReserveTableResponse:Codable {
+    var status : String?
+    var responseCode : String?
+    var message : String?
+    var outlet_id : String?
+}
+struct PaymentStatusResponse:Codable {
+    var status : String?
+    var responseCode : String?
+    var message : String?
+    var payment_code : Int?
+    var payment_status : String?
+    var grand_total : String?
 }
 struct BannerResponse:Decodable {
     var status : String?
@@ -189,6 +205,7 @@ struct ViewCarListResponse: Decodable {
     var device_id : String?
     var reward_points : String?
     var pro_amount : String?
+    var sub_total : String?
     var addon_list : [ViewCartAddOnList]?
 }
 struct ViewCartAddOnList:Decodable{

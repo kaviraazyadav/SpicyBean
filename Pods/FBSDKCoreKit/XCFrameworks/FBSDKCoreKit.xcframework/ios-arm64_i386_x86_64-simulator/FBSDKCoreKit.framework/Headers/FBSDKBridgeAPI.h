@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
  *
  * This source code is licensed under the license found in the
@@ -46,10 +46,6 @@ NS_SWIFT_NAME(shared);
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
-
-- (void)openURL:(NSURL *)url
-         sender:(nullable id<FBSDKURLOpening>)sender
-        handler:(FBSDKSuccessBlock)handler;
 
 @end
 

@@ -98,7 +98,7 @@ extension UIView {
         self.layer.masksToBounds = false
         self.layer.cornerRadius = self.frame.height/2
                     self.layer.borderWidth = 1
-                    self.layer.borderColor = UIColor.lightGray.cgColor
+        self.layer.borderColor = hexStringToUIColor(hex: "#fcb419").cgColor
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowOffset = CGSize(width: 1, height: 1)
         self.layer.shadowOpacity = 0.4
@@ -238,6 +238,25 @@ extension NSMutableAttributedString {
 }
 
 extension UIViewController {
+    func showToast(message : String, font: UIFont) {
+
+        let toastLabel = UILabel(frame: CGRect(x: 50, y: self.view.frame.size.height-180, width: self.view.frame.size.width - 100, height: 50))
+        toastLabel.backgroundColor = hexStringToUIColor(hex: "#f1431d")
+        toastLabel.textColor = UIColor.white
+        toastLabel.font = font
+        toastLabel.textAlignment = .center;
+        toastLabel.text = message
+        toastLabel.numberOfLines = 2
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 10;
+        toastLabel.clipsToBounds  =  true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 4.0, delay: 2.0, options: .curveEaseOut, animations: {
+             toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
+    }
     func customNvaBar(rgbValue:UInt32) {
         let logo = UIImage(named: "nav_bar_logo")
         let imageView = UIImageView(image:logo)

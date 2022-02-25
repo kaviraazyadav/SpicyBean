@@ -54,7 +54,12 @@ class ForgotPswdViewController: UIViewController {
     @IBAction func tapOnSubmitBtn(_ sender: Any) {
         let email = self.emailTxt.text ?? ""
         if email != "" {
-            self.callforgotPswdApi(param: ["email":email])
+            if isValidEmail(email: email) == true{
+                self.callforgotPswdApi(param: ["email":email])
+            }else{
+                showToast(message: "Please enter valid email", font: UIFont.systemFont(ofSize: 14))
+            }
+           
         }else{
             AlertMsg(Msg: "Please enter your email", title: "Alert!", vc: self)
         }

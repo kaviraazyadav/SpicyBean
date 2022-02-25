@@ -30,6 +30,8 @@ class CartTableViewCell: UITableViewCell,UITableViewDataSource {
     @IBOutlet weak var addOnTable: UITableView!
     
     @IBOutlet weak var addOnTableHeight: NSLayoutConstraint!
+   
+    @IBOutlet weak var subTotal: UILabel!
     var add_data = [ViewCartAddOnList]()
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -45,15 +47,29 @@ class CartTableViewCell: UITableViewCell,UITableViewDataSource {
     }
     
     func bind_data(item:ViewCarListResponse){
+        var proQty = Double()
+        var proPrice = Double()
         if let name = item.product_name{
             self.proName.text = name
         }
         if let price = item.product_price{
-            self.proPrice.text = "$\(price)"
+            self.proPrice.text = "Price : $\(price)"
+            if let intP = Double(price){
+                proPrice = intP
+            }
+            self.subTotal.text = "Sub Total : $\(price)"
+            
         }
         if let qty = item.product_quantity{
             self.qtyTxt.text = qty
+            if let intQty = Double(qty){
+                proQty = intQty
+            }
+            
         }
+        let totalamount = proQty * proPrice
+          let round_value = Double(round(1000 * totalamount) / 1000)
+            self.subTotal.text = "Sub Total : $\(round_value)"
         var count = self.add_data.count
         if let itemList = item.addon_list{
             self.add_data.removeAll()

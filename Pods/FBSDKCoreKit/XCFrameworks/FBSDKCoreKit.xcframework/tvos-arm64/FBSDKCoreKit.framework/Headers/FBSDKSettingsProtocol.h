@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
  *
  * This source code is licensed under the license found in the
@@ -40,5 +40,26 @@ NS_SWIFT_NAME(SettingsProtocol)
 @property (nullable, nonatomic, readonly, copy) NSString *graphAPIDebugParamValue;
 @property (nonatomic, getter = isAdvertiserTrackingEnabled) BOOL advertiserTrackingEnabled;
 @property (nonatomic) BOOL shouldUseCachedValuesForExpensiveMetadata;
+@property (nullable, nonatomic, readonly) NSDictionary<NSString *, id> *persistableDataProcessingOptions;
+
+/**
+ Set the data processing options.
+
+ @param options list of options
+*/
+- (void)setDataProcessingOptions:(nullable NSArray<NSString *> *)options;
+
+/**
+ Set the data processing options.
+
+ @param options list of the options
+ @param country code of the country
+ @param state code of the state
+*/
+- (void)setDataProcessingOptions:(nullable NSArray<NSString *> *)options
+                         country:(int)country
+                           state:(int)state;
+
 @end
+
 NS_ASSUME_NONNULL_END

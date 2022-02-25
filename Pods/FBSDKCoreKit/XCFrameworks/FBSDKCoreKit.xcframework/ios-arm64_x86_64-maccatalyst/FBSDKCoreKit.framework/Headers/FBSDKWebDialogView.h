@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
  *
  * This source code is licensed under the license found in the
@@ -11,8 +11,6 @@
 #import <UIKit/UIKit.h>
 
 @protocol FBSDKWebDialogViewDelegate;
-@protocol FBSDKWebViewProviding;
-@protocol FBSDKInternalURLOpener;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,9 +18,6 @@ NS_SWIFT_NAME(FBWebDialogView)
 @interface FBSDKWebDialogView : UIView
 
 @property (nonatomic, weak) id<FBSDKWebDialogViewDelegate> delegate;
-
-+ (void)configureWithWebViewProvider:(id<FBSDKWebViewProviding>)provider
-                           urlOpener:(id<FBSDKInternalURLOpener>)urlOpener;
 
 - (void)loadURL:(NSURL *)URL;
 - (void)stopLoading;

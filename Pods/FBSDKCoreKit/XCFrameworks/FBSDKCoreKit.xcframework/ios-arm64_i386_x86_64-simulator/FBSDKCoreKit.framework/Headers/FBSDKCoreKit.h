@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
  *
  * This source code is licensed under the license found in the
@@ -34,6 +34,8 @@
 #import <FBSDKCoreKit/FBSDKDynamicFrameworkLoaderProxy.h>
 #import <FBSDKCoreKit/FBSDKDynamicSocialFrameworkLoader.h>
 #import <FBSDKCoreKit/FBSDKError.h>
+#import <FBSDKCoreKit/FBSDKErrorCreating.h>
+#import <FBSDKCoreKit/FBSDKErrorFactory.h>
 #import <FBSDKCoreKit/FBSDKErrorRecoveryAttempting.h>
 #import <FBSDKCoreKit/FBSDKFeatureChecking.h>
 #import <FBSDKCoreKit/FBSDKGraphRequest.h>
@@ -59,6 +61,8 @@
 #import <FBSDKCoreKit/FBSDKLogging.h>
 #import <FBSDKCoreKit/FBSDKLoggingBehavior.h>
 #import <FBSDKCoreKit/FBSDKLoginTooltip.h>
+#import <FBSDKCoreKit/FBSDKNetworkErrorChecker.h>
+#import <FBSDKCoreKit/FBSDKNetworkErrorChecking.h>
 #import <FBSDKCoreKit/FBSDKProductAvailability.h>
 #import <FBSDKCoreKit/FBSDKProductCondition.h>
 #import <FBSDKCoreKit/FBSDKRandom.h>

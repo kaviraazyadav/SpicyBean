@@ -97,7 +97,7 @@ dismissController(vc: self)
         
 //        components.year = -150
 //        let minDate: Date = gregorian.date(byAdding: components as DateComponents, to: currentDate, options: NSCalendar.Options(rawValue: 0))!
-        components.hour = 8
+        components.month = 1
         
         let maxDate: Date = gregorian.date(byAdding: components as DateComponents, to: currentDate, options: NSCalendar.Options(rawValue: 0))!
         
@@ -112,7 +112,7 @@ dismissController(vc: self)
 
     @objc func handleDatePicker(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-mm-yyyy HH:mm"
+        dateFormatter.dateFormat = "dd-MM-YYYY hh:mm"
         dateTimeTxt.text = dateFormatter.string(from: sender.date)
 
     }
@@ -122,27 +122,41 @@ dismissController(vc: self)
         
     }
     
+    func clearFields(){
+       self.nameTxt.text = ""
+        self.emailTxt.text =  ""
+         self.mobileTxt.text =  ""
+         self.noPeopleTxt.text =  ""
+        self.dateTimeTxt.text =  ""
+        self.noteTxtView.text = ""
+    }
+    
     func validateReserveTableApi(){
         let name = self.nameTxt.text ?? ""
         let email = self.emailTxt.text ?? ""
-        let mobile = self.emailTxt.text ?? ""
+        let mobile = self.mobileTxt.text ?? ""
         let people_count = self.noPeopleTxt.text ?? ""
         let date_time = self.dateTimeTxt.text ?? ""
 
         let note = self.noteTxtView.text ?? ""
         
         if name != "" && email != "" && mobile != "" && people_count != "" && date_time != "" {
-            let dateArr = date_time.components(separatedBy: " ")
-            let date = dateArr[0]
-            let time = dateArr[1]
-            self.callreserveTableApi(param: ["res_email":email,
-                                             "res_mobile": mobile,
-                                             "res_name": name,
-                                             "res_people":people_count,
-                                             "res_date":date,
-                                             "res_time":time,
-                                             "res_message":note])
-            
+            if isValidEmail(email: email) == true{
+                let dateArr = date_time.components(separatedBy: " ")
+                let date = dateArr[0]
+                let time = dateArr[1]
+                self.callreserveTableApi(param: ["res_email":email,
+                                                 "res_mobile": mobile,
+                                                 "res_name": name,
+                                                 "res_people":people_count,
+                                                 "res_date":date,
+                                                 "res_time":time,
+                                                 "res_message":note])
+                
+            }else{
+                showToast(message: "Enter valid email", font: UIFont.systemFont(ofSize: 14))
+            }
+           
         }else{
             AlertMsg(Msg: "Please input all the fields", title: "Alert!", vc: self)
         }
@@ -152,17 +166,17 @@ dismissController(vc: self)
     // TableReservation Api
     func callreserveTableApi(param:[String:Any]){
             showActivityIndicator(uiView: self)
-        let req = NetworkManger.api.postRequest(reqType:.reserveTable, params: param, responseType: CommonResponse.self, vc: self)
-            req.done { (response:CommonResponse) in
+        let seconds = 1.0
+        let req = NetworkManger.api.postRequest(reqType:.reserveTable, params: param, responseType: ReserveTableResponse.self, vc: self)
+            req.done { (response:ReserveTableResponse) in
                 hideActivityIndicator(uiView: self)
                 print(response)
                 let responseCode = response.responseCode
                 let message = response.message ?? ""
                 print(message)
                 if responseCode == "0"{
-                    self.removeAnimate()
-                    AlertMsg(Msg: message, title: "Alert", vc: self)
-
+                    self.clearFields()
+                    AlertWithAction(Msg: message, title: "Alert", vc: self)
                 }else{
                  AlertMsg(Msg: message, title: "Alert", vc: self)
                 }
@@ -190,6 +204,17 @@ extension TableReservationViewController : UITextFieldDelegate {
         if textField == dateTimeTxt{
             self.pickUpDate(dateTimeTxt)
         }
+    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == mobileTxt {
+            let maxLength = 10
+            
+            let currentString: NSString = (textField.text ?? "") as NSString
+            let newString: NSString =
+            currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        }
+       return true
     }
 }
 extension TableReservationViewController: UITextViewDelegate{

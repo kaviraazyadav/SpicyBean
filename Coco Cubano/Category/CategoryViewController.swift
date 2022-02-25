@@ -25,7 +25,7 @@ class CategoryViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var cat_btn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.callCategoryListApi(param: ["":""])
+        self.callCategoryListApi(param: [:])
             self.badgeLbl.text = "0"
         self.searchTxt.delegate = self
         self.searchTxt.addTarget(self, action: #selector(CategoryViewController.textFieldDidChange(_:)), for: .editingChanged)
@@ -80,6 +80,8 @@ class CategoryViewController: UIViewController,UITextFieldDelegate {
     override func viewDidLayoutSubviews() {
         cat_btn.circleViewWithShadow()
         self.badgeLbl.layer.cornerRadius = self.badgeLbl.frame.width/2
+        self.badgeLbl.layer.borderWidth = 1
+        self.badgeLbl.layer.borderColor = hexStringToUIColor(hex: "#fcb419").cgColor
         self.badgeLbl.layer.masksToBounds = true
         self.searchView.viewBorder(radius: 5, color: .lightGray, borderWidth: 1)
     }
@@ -132,7 +134,7 @@ class CategoryViewController: UIViewController,UITextFieldDelegate {
             self.filter_category_list_arr.removeAll()
             for item in self.category_list_arr {
                 if let cat_name = item.categoryName {
-                    if cat_name.contains(searchStr.uppercased()){
+                    if cat_name.localizedCaseInsensitiveContains(searchStr){
                         print("cat_name",cat_name)
                         self.filter_category_list_arr.append(item)
                 }
@@ -225,10 +227,10 @@ extension CategoryViewController : UICollectionViewDataSource,UICollectionViewDe
             if let cat_name = self.category_list_arr[indexPath.row].categoryName {
                 cell.cat_name.text = cat_name
             }
-            
             if let cat_image  = self.category_list_arr[indexPath.row].categoryImage{
                 showImgWithLink(imgUrl: cat_image, imgView: cell.catImg)
             }
+            
         }
       
         

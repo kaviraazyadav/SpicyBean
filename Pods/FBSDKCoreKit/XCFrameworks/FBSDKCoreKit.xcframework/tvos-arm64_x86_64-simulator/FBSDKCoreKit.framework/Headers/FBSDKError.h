@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
  *
  * This source code is licensed under the license found in the
@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(SDKError)
+DEPRECATED_MSG_ATTRIBUTE("`SDKError` is deprecated and will be removed in the next major release; use `ErrorFactory` and/or `NetworkErrorChecker` instead")
 @interface FBSDKError : NSObject
 
 + (NSError *)errorWithCode:(NSInteger)code message:(nullable NSString *)message;

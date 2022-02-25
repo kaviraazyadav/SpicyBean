@@ -6,75 +6,83 @@
 	<dict>
 		<key>Headers/FBSDKBase64.h</key>
 		<data>
-		E/QUL/wQmtei/Uq6Zdfwx9jGnfk=
+		PshGIWeNlJ+BXgxcz0NU5QqdkyQ=
 		</data>
 		<key>Headers/FBSDKBasicUtility.h</key>
 		<data>
-		HXvDcRg7nRt3LcDcxo9ReKVQPBI=
+		AmlXUMpdwiUBIFi5SrRK+fwfDKk=
 		</data>
 		<key>Headers/FBSDKCoreKit_Basics.h</key>
 		<data>
-		yCOj2PF5gFLCsFZYokrHaF+kb6E=
+		YnC6sME1Yz4LmUb2gg9fXD7Dsbg=
 		</data>
 		<key>Headers/FBSDKCrashHandler.h</key>
 		<data>
-		XFjx0woFw9B8j8LqVNsXXvwVJoI=
+		qVsDSsb228XceR4uRrdYKLYX+AE=
 		</data>
 		<key>Headers/FBSDKCrashHandlerProtocol.h</key>
 		<data>
-		CsXBCZ81uNaVuAisytOHvg75ADw=
+		PlP4CtaRgnMKzXyn0Cd6eWV10r8=
 		</data>
 		<key>Headers/FBSDKCrashObserving.h</key>
 		<data>
-		bQWTfceZkxi743jRJJDIy99cuo0=
+		UhJc2ZYtB2hcyXxk00KbwKbTgcc=
+		</data>
+		<key>Headers/FBSDKDataPersisting.h</key>
+		<data>
+		g8WRKHOVC7O4vDzcESc4nl6IrS8=
 		</data>
 		<key>Headers/FBSDKFileDataExtracting.h</key>
 		<data>
-		LxFDvNle13JoDmZvSSzaMq1Oa1I=
+		LaiRhfHoweHIv08y19Rl1bKPTwU=
 		</data>
 		<key>Headers/FBSDKFileManaging.h</key>
 		<data>
-		RGfD1Vt40F4+KcA8VjKjdUqF484=
+		zEID6Ct6C8vfKzOG+NiXbiQRLBw=
 		</data>
 		<key>Headers/FBSDKInfoDictionaryProviding.h</key>
 		<data>
-		0DFht/FeVqaMa7M8JQuaRJA8szo=
+		96kTJJn3CsFC9EpCzQGrMMnxoDw=
 		</data>
 		<key>Headers/FBSDKJSONValue.h</key>
 		<data>
-		OLenA4dA/hoHL9KoLtcmTT6UVQQ=
+		dYVW+kMhT0dmiqKjHUQVam4NiWU=
 		</data>
 		<key>Headers/FBSDKLibAnalyzer.h</key>
 		<data>
-		w6SGJFQsunrvqQV7lMNyfnxNEh4=
+		Sr7GpMqIG4HmNNhoU6xSJrR36F8=
 		</data>
 		<key>Headers/FBSDKSafeCast.h</key>
 		<data>
-		WWBwINeiFEkxlEr0TDDVALzUh+E=
+		jJe6LzteCG3/OgKBO6cgkfabb/Q=
 		</data>
 		<key>Headers/FBSDKSessionProviding.h</key>
 		<data>
-		1w+GWyBB3yDL62qG7SeX8W/2J20=
+		bPzFkDKe6de6K5IwqpGectQjKmQ=
 		</data>
 		<key>Headers/FBSDKTypeUtility.h</key>
 		<data>
-		f4LB/u7GXJwPD3xDZuv2sHs5T+s=
+		+mQ4fO0hpeb26QL71MGmRLqjkDk=
 		</data>
 		<key>Headers/FBSDKURLSession.h</key>
 		<data>
-		wZwJ/rWdyoVFW6OM4trMyykUuUQ=
+		lA/Wf2Scx5vxwSvYRgWS6jZnB4k=
 		</data>
 		<key>Headers/FBSDKURLSessionTask.h</key>
 		<data>
-		rDIhK3CRTMaZLaphUxAzW1FYcr4=
+		kV58WzW39iZxupFSArvSXn3K8W8=
 		</data>
 		<key>Headers/NSBundle+InfoDictionaryProviding.h</key>
 		<data>
-		oGjglpf8ghGdp8PMxegBaTY1vlI=
+		LQYuP7h8HIOQcOgzp9G/wjytXFE=
+		</data>
+		<key>Headers/NSUserDefaults+FBSDKDataPersisting.h</key>
+		<data>
+		bnAslOCiggux3zXflp6F2JcibGg=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		XUqEy0/IxcUSzkzviVLUmXr5O/M=
+		0gDcIs8uC67NMyQzajawegC2Iow=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -87,187 +95,209 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			E/QUL/wQmtei/Uq6Zdfwx9jGnfk=
+			PshGIWeNlJ+BXgxcz0NU5QqdkyQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			/xlvIansfAFCK+TkUB2L+DHcm0xSn9ikiRrS7KV4Yms=
+			LpsUDXpA8M4pfCpBbFG7JruWn/Zw9z35rmT0dXuoqTQ=
 			</data>
 		</dict>
 		<key>Headers/FBSDKBasicUtility.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			HXvDcRg7nRt3LcDcxo9ReKVQPBI=
+			AmlXUMpdwiUBIFi5SrRK+fwfDKk=
 			</data>
 			<key>hash2</key>
 			<data>
-			IYSpqnGZhHt8w9NfYWn3iFmpIA5UFn1XOcrecf0vcps=
+			9j2HLNIq6wlTk6AfDCT/1dW/XR6Vf5ZXZMp3OX5RmCM=
 			</data>
 		</dict>
 		<key>Headers/FBSDKCoreKit_Basics.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			yCOj2PF5gFLCsFZYokrHaF+kb6E=
+			YnC6sME1Yz4LmUb2gg9fXD7Dsbg=
 			</data>
 			<key>hash2</key>
 			<data>
-			G5ab8/5ENi2AjEoBdg/CAweyQddr5PBWBSgNxsvQAhw=
+			Zrsa1Z+Ys+JW56PabtUBlMjUEnMtm6b8xTkZqGsdaIY=
 			</data>
 		</dict>
 		<key>Headers/FBSDKCrashHandler.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			XFjx0woFw9B8j8LqVNsXXvwVJoI=
+			qVsDSsb228XceR4uRrdYKLYX+AE=
 			</data>
 			<key>hash2</key>
 			<data>
-			l1k6wiyMcXb0XB2qDeKvkfeL0NlWcMizCphQj9PEES0=
+			6fVyNU3zX+XbMD88HJMQsli/DVlUZLjW1tcmbmcFhCw=
 			</data>
 		</dict>
 		<key>Headers/FBSDKCrashHandlerProtocol.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			CsXBCZ81uNaVuAisytOHvg75ADw=
+			PlP4CtaRgnMKzXyn0Cd6eWV10r8=
 			</data>
 			<key>hash2</key>
 			<data>
-			DFSfuDnACgqJ4cRupdbntq9LUeem+iM9MMpabZAdpTg=
+			woEHrSFdQvUOUdlyH0JGdVNem49byRaZAMw+19Pe+Sc=
 			</data>
 		</dict>
 		<key>Headers/FBSDKCrashObserving.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			bQWTfceZkxi743jRJJDIy99cuo0=
+			UhJc2ZYtB2hcyXxk00KbwKbTgcc=
 			</data>
 			<key>hash2</key>
 			<data>
-			7FJCrZvANCZztOdkzIHTWv/fh1G0wH4WXoa7JkMCdvI=
+			tO6F4Bbijxuct9m9xB8pcqmAlnyPPJ0EqbN+Z8/EM1w=
+			</data>
+		</dict>
+		<key>Headers/FBSDKDataPersisting.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			g8WRKHOVC7O4vDzcESc4nl6IrS8=
+			</data>
+			<key>hash2</key>
+			<data>
+			U4CbBRkZKqUmvVM6czJbCCMQnHOikLVo+sln0V5PwpU=
 			</data>
 		</dict>
 		<key>Headers/FBSDKFileDataExtracting.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			LxFDvNle13JoDmZvSSzaMq1Oa1I=
+			LaiRhfHoweHIv08y19Rl1bKPTwU=
 			</data>
 			<key>hash2</key>
 			<data>
-			iS7XUxOZTJ6BYZYIFH4RAARlRK5ADHYmbMKJrHP5StM=
+			No8SNuna5s6hBe6z7rrhuaOccAq19c7TgMxr/tTH/BM=
 			</data>
 		</dict>
 		<key>Headers/FBSDKFileManaging.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			RGfD1Vt40F4+KcA8VjKjdUqF484=
+			zEID6Ct6C8vfKzOG+NiXbiQRLBw=
 			</data>
 			<key>hash2</key>
 			<data>
-			nR+wnJVnDb/sRad4stAqXOiaNcnT4c8iuGvOuanPLRk=
+			VciJQtgUlelDAY1xRcTmKgt6cQknm/5hZEuuAr/BX4Y=
 			</data>
 		</dict>
 		<key>Headers/FBSDKInfoDictionaryProviding.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			0DFht/FeVqaMa7M8JQuaRJA8szo=
+			96kTJJn3CsFC9EpCzQGrMMnxoDw=
 			</data>
 			<key>hash2</key>
 			<data>
-			pQ0SyrNst9KJT2zGxFbB5jczsjxLYg87npAdkbv2HO8=
+			r1HYofHvcKSm6OwMFb0NMlU3HWk3NQRE6wffAJf1wzY=
 			</data>
 		</dict>
 		<key>Headers/FBSDKJSONValue.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			OLenA4dA/hoHL9KoLtcmTT6UVQQ=
+			dYVW+kMhT0dmiqKjHUQVam4NiWU=
 			</data>
 			<key>hash2</key>
 			<data>
-			rZLLPq4MwNcjqvIM1pU66fa39ojwvkLfWKK5rD+dUAQ=
+			l+ZgZnmMt5K36LCM+iXOfGHXkYzsgHNK37cNBq6/ifI=
 			</data>
 		</dict>
 		<key>Headers/FBSDKLibAnalyzer.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			w6SGJFQsunrvqQV7lMNyfnxNEh4=
+			Sr7GpMqIG4HmNNhoU6xSJrR36F8=
 			</data>
 			<key>hash2</key>
 			<data>
-			1Wj9qmLcfAb/6Ciel5Hk1a1Wgqbq+UA4JQpJAZbalmc=
+			vcTMWhsIb/z29oxTpsnEfTWCnlgLS7qlPQuTTREW6Ek=
 			</data>
 		</dict>
 		<key>Headers/FBSDKSafeCast.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			WWBwINeiFEkxlEr0TDDVALzUh+E=
+			jJe6LzteCG3/OgKBO6cgkfabb/Q=
 			</data>
 			<key>hash2</key>
 			<data>
-			iTpdSkyMlkZi0GxFOYlZT6++6p9kOk8rZ0+MOKyJkTs=
+			D8XpeGF0s/efTX/g9Il3tFt60GWPe2Tlsj3JRNMPciY=
 			</data>
 		</dict>
 		<key>Headers/FBSDKSessionProviding.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			1w+GWyBB3yDL62qG7SeX8W/2J20=
+			bPzFkDKe6de6K5IwqpGectQjKmQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			MrHO0yqchFy6bz5BAQFGy/bMjGRnWuw1rpxrSVbY7ZE=
+			1EO8Q16A83EsCIlaeWEa1ly8UaLgWSEMtrwrO9dDWY4=
 			</data>
 		</dict>
 		<key>Headers/FBSDKTypeUtility.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			f4LB/u7GXJwPD3xDZuv2sHs5T+s=
+			+mQ4fO0hpeb26QL71MGmRLqjkDk=
 			</data>
 			<key>hash2</key>
 			<data>
-			hZlmjZf9v1xCK0UvAcKoBxE9FO0N4hcVwc3MHNknwe8=
+			FAFmxj+2+xeTyHVZPy0V0HDESx3Ux7wAklf64dR7gEg=
 			</data>
 		</dict>
 		<key>Headers/FBSDKURLSession.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			wZwJ/rWdyoVFW6OM4trMyykUuUQ=
+			lA/Wf2Scx5vxwSvYRgWS6jZnB4k=
 			</data>
 			<key>hash2</key>
 			<data>
-			zO6qPAvIrwsteHjOUUIyijqJmz2ogCryuCUl/SpPn00=
+			3GN8M0PBYr0gYToTrASL8xhooFLb82NlP5rpAgGoFUU=
 			</data>
 		</dict>
 		<key>Headers/FBSDKURLSessionTask.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			rDIhK3CRTMaZLaphUxAzW1FYcr4=
+			kV58WzW39iZxupFSArvSXn3K8W8=
 			</data>
 			<key>hash2</key>
 			<data>
-			QdNBq/LdvsMSh6DqAzaKOw7M3V6jpSg3T4PDa/iIKNM=
+			p05rvhLSmlFGAIUL94Ow7U6/25AfiIq3zBQkI19aMw4=
 			</data>
 		</dict>
 		<key>Headers/NSBundle+InfoDictionaryProviding.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			oGjglpf8ghGdp8PMxegBaTY1vlI=
+			LQYuP7h8HIOQcOgzp9G/wjytXFE=
 			</data>
 			<key>hash2</key>
 			<data>
-			wfxymxezLI1GCqYsLn1biGERK1/zX8QxIXkoIZu+RP0=
+			prKkDnp04YVMOPQH+h/YUPwUEFJuHKQbMxiL1PkGRYM=
+			</data>
+		</dict>
+		<key>Headers/NSUserDefaults+FBSDKDataPersisting.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			bnAslOCiggux3zXflp6F2JcibGg=
+			</data>
+			<key>hash2</key>
+			<data>
+			F0axQ9q1u74YAyMfIa9uyxde6rbjKmxC4wxD6M00k0Y=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

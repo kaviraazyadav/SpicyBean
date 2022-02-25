@@ -33,7 +33,8 @@ class MyorderViewController: UIViewController {
     }
     func initialSetup(){
         self.tawayView.backgroundColor = .clear
-        self.delView.backgroundColor = hexStringToUIColor(hex: "#8EC400")
+        self.delView.backgroundColor = hexStringToUIColor(hex: "#f1431d")
+        self.delBtn.setTitleColor(hexStringToUIColor(hex: "#f1431d"), for: .normal)
         self.callOrderListApi(param: ["id":userDefault.shared.getUserId(key: Constants.user_id),"orderType":"2"])
 
     }
@@ -84,15 +85,15 @@ class MyorderViewController: UIViewController {
         self.delBtn.setTitleColor(.darkGray, for: .normal)
         self.tAwayBtn.setTitleColor(.darkGray, for: .normal)
         self.tawayView.backgroundColor = .clear
-        self.tableView.backgroundColor = hexStringToUIColor(hex: "#8EC400")
-        self.tableTopBtn.setTitleColor(hexStringToUIColor(hex: "#8EC400"), for: .normal)
+        self.tableView.backgroundColor = hexStringToUIColor(hex: "#f1431d")
+        self.tableTopBtn.setTitleColor(hexStringToUIColor(hex: "#f1431d"), for: .normal)
         self.callOrderListApi(param: ["id":userDefault.shared.getUserId(key: Constants.user_id),"orderType":"3"])
 
     }
     
     @IBAction func tapOnDelView(_ sender: Any) {
-        self.delView.backgroundColor = hexStringToUIColor(hex: "#8EC400")
-        self.delBtn.setTitleColor(hexStringToUIColor(hex: "#8EC400"), for: .normal)
+        self.delView.backgroundColor = hexStringToUIColor(hex: "#f1431d")
+        self.delBtn.setTitleColor(hexStringToUIColor(hex: "#f1431d"), for: .normal)
         self.tAwayBtn.setTitleColor(.darkGray, for: .normal)
         self.tawayView.backgroundColor = .clear
         self.tableTopBtn.setTitleColor(.darkGray, for: .normal)
@@ -102,12 +103,12 @@ class MyorderViewController: UIViewController {
     }
     
     @IBAction func tapOnTakeAwayBtn(_ sender: Any) {
-        self.tawayView.backgroundColor = hexStringToUIColor(hex: "#8EC400")
+        self.tawayView.backgroundColor = hexStringToUIColor(hex: "#f1431d")
         self.delView.backgroundColor = .clear
         self.delBtn.setTitleColor(.darkGray, for: .normal)
         self.tableTopBtn.setTitleColor(.darkGray, for: .normal)
         self.tableView.backgroundColor = .clear
-        self.tAwayBtn.setTitleColor(hexStringToUIColor(hex: "#8EC400"), for: .normal)
+        self.tAwayBtn.setTitleColor(hexStringToUIColor(hex: "#f1431d"), for: .normal)
         self.callOrderListApi(param: ["id":userDefault.shared.getUserId(key: Constants.user_id),"orderType":"1"])
     }
 }
@@ -126,7 +127,4 @@ extension  MyorderViewController : UITableViewDataSource,UITableViewDelegate {
             cell.orderDetailBtn.tag = indexPath.row
             return cell
         }
-
-    
-
 }

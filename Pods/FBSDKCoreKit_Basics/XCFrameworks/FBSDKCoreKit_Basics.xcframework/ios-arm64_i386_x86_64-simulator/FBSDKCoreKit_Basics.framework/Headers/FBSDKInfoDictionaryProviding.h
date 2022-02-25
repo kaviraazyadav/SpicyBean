@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
  *
  * This source code is licensed under the license found in the
@@ -14,6 +14,7 @@ NS_SWIFT_NAME(InfoDictionaryProviding)
 @protocol FBSDKInfoDictionaryProviding
 
 @property (nullable, readonly, copy) NSDictionary<NSString *, id> *infoDictionary;
+@property (nullable, readonly, copy) NSString *bundleIdentifier;
 
 - (nullable id)objectForInfoDictionaryKey:(NSString *)key;
 

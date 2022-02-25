@@ -15,10 +15,10 @@ class VerificationViewController: UIViewController {
     
     @IBOutlet weak var codeTxt: UITextField!
     var param = [String:Any] ()
-    
+    var token = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        token = userDefault.shared.getFcmToken(key: Constants.user_token)
         // Do any additional setup after loading the view.
     }
     // verify Api
@@ -59,12 +59,15 @@ class VerificationViewController: UIViewController {
     
 
     @IBAction func tapOnBack(_ sender: Any) {
+        goBack(vc: self)
     }
     
     @IBAction func tapOnVerifyBtn(_ sender: Any) {
         let code = self.codeTxt.text ?? ""
         if code != "" {
             param["mobile_otp"] = code
+            param["device_type"] = "2"
+            param["token_id"] = token
             print(param)
             
             self.callverifyApi(param: param)
@@ -74,4 +77,15 @@ class VerificationViewController: UIViewController {
         }
         
     }
+}
+extension VerificationViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let maxLength = 4
+        
+        let currentString: NSString = (textField.text ?? "") as NSString
+        let newString: NSString =
+        currentString.replacingCharacters(in: range, with: string) as NSString
+        return newString.length <= maxLength
+    }
+    
 }

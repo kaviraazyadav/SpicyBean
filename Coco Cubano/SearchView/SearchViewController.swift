@@ -131,7 +131,7 @@ class SearchViewController: UIViewController,UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool{
             let str = string
         if str != ""{
-            if textField.text!.count >= 3{
+            if textField.text!.count >= 2{
                 self.callProductListApi(param: ["search_text":textField.text ?? ""])
             }
         }

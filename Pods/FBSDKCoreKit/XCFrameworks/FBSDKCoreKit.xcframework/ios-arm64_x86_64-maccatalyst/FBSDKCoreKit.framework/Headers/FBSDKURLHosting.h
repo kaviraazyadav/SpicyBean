@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
  *
  * This source code is licensed under the license found in the
@@ -19,10 +19,10 @@ NS_SWIFT_NAME(URLHosting)
 
  @warning INTERNAL - DO NOT USE
  */
-- (NSURL *)appURLWithHost:(NSString *)host
-                     path:(NSString *)path
-          queryParameters:(NSDictionary<NSString *, id> *)queryParameters
-                    error:(NSError *__autoreleasing *)errorRef;
+- (nullable NSURL *)appURLWithHost:(NSString *)host
+                              path:(NSString *)path
+                   queryParameters:(NSDictionary<NSString *, NSString *> *)queryParameters
+                             error:(NSError *__autoreleasing *)errorRef;
 
 /**
  Internal Type exposed to facilitate transition to Swift.
@@ -30,10 +30,10 @@ NS_SWIFT_NAME(URLHosting)
 
  @warning INTERNAL - DO NOT USE
  */
-- (NSURL *)facebookURLWithHostPrefix:(NSString *)hostPrefix
-                                path:(NSString *)path
-                     queryParameters:(NSDictionary<NSString *, id> *)queryParameters
-                               error:(NSError *__autoreleasing *)errorRef;
+- (nullable NSURL *)facebookURLWithHostPrefix:(NSString *)hostPrefix
+                                         path:(NSString *)path
+                              queryParameters:(NSDictionary<NSString *, NSString *> *)queryParameters
+                                        error:(NSError *__autoreleasing *)errorRef;
 
 @end
 

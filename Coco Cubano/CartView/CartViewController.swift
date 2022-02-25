@@ -155,7 +155,10 @@ class CartViewController: UIViewController {
                 final_amount += single_amount!
             }else{
                 let single_amount = Double(item.product_price ?? "")
-                final_amount += single_amount!
+                let qty = Double(item.product_quantity ?? "")
+                let amountBasedOnQty = single_amount! * qty!
+                let round_value = Double(round(1000 * amountBasedOnQty) / 1000)
+                final_amount += round_value
             }
               
           
@@ -210,6 +213,8 @@ class CartViewController: UIViewController {
             let qtyDouble = Double(productQty)
             let totalamount = qtyDouble * each_pro_price
             self.cart_data[i].pro_amount = String(totalamount)
+            self.cart_data[i].sub_total = String(totalamount)
+            cell.subTotal.text = "Sub Total : $\(totalamount)"
             self.cart_data[i].product_quantity = String(productQty)
             self.bill_details()
             self.calldecrementCartApi(param: ["user_id":user_id,
@@ -252,6 +257,8 @@ class CartViewController: UIViewController {
         let round_value = Double(round(1000 * totalamount) / 1000)
 
         self.cart_data[i].pro_amount = String(round_value)
+        self.cart_data[i].sub_total = String(round_value)
+        cell.subTotal.text = "Sub Total : $\(round_value)"
         self.cart_data[i].product_quantity = String(productQty)
         self.bill_details()
         self.callincrementCartApi(param: ["user_id":user_id,

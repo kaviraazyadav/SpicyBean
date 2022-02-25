@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>168977071492-4ib25ufi29of08kkv0nl2l5vrcolriik.apps.googleusercontent.com</string>
+	<string>1071142016453-u4rrccj18i8npqri1droeigmam9g4bbj.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.168977071492-4ib25ufi29of08kkv0nl2l5vrcolriik</string>
+	<string>com.googleusercontent.apps.1071142016453-u4rrccj18i8npqri1droeigmam9g4bbj</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDV4lGrHpuwAcHiy7scqlCSIyDkz9dgvLM</string>
+	<string>AIzaSyD1LdSraSw0dQv2NVt9gjLxyIR4XHWvBTk</string>
 	<key>GCM_SENDER_ID</key>
-	<string>168977071492</string>
+	<string>1071142016453</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.cocoCubano.App</string>
+	<string>com.cygen.spicyBean</string>
 	<key>PROJECT_ID</key>
-	<string>coco-7edf7</string>
+	<string>spicy-bean-1645010451940</string>
 	<key>STORAGE_BUCKET</key>
-	<string>coco-7edf7.appspot.com</string>
+	<string>spicy-bean-1645010451940.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:168977071492:ios:04628b2eab18d9218cb1d1</string>
+	<string>1:1071142016453:ios:082f23c943af4771b327ac</string>
 </dict>
 </plist>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
  *
  * This source code is licensed under the license found in the
@@ -9,15 +9,18 @@
 #import <UIKit/UIKit.h>
 
 #import <FBSDKCoreKit/FBSDKLoggingBehavior.h>
+#import <FBSDKCoreKit/FBSDKSettingsLogging.h>
 #import <FBSDKCoreKit/FBSDKSettingsProtocol.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(Settings)
-@interface FBSDKSettings : NSObject <FBSDKSettings>
+@interface FBSDKSettings : NSObject <FBSDKSettings, FBSDKSettingsLogging>
 
+#if !FBTEST
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
+#endif
 
 /**
  The shared settings instance. Prefer this and the exposed instance methods over the class variants.

@@ -25,6 +25,7 @@ class PaymentViewController: UIViewController {
     var mobile = ""
     var address = ""
     var location = ""
+    var grand_total = ""
     var saved_order_id = ""
     
     var timer = Timer()
@@ -52,6 +53,7 @@ class PaymentViewController: UIViewController {
             self.callsaveOrderApi(param: ["customer_id":cust_id,
                                            "order_type":"tableTop",
                                            "subtotal":sub_total,
+                                          "grand_total":grand_total,
                                           "itemqty":formatteditem_qtyArrArray,
                                           "itemprice":formatteditem_priceArrArray,
                                            "tax_type":"1",
@@ -73,6 +75,7 @@ class PaymentViewController: UIViewController {
             self.callsaveOrderApi(param: ["customer_id":cust_id,
                                            "order_type":mode_of_delivery,
                                            "subtotal":sub_total,
+                                          "grand_total":grand_total,
                                           "itemqty":formatteditem_qtyArrArray,
                                           "itemprice":formatteditem_priceArrArray,
                                            "tax_type":"1",
@@ -105,9 +108,10 @@ class PaymentViewController: UIViewController {
                     let orderId = response.order_id ?? ""
                     userDefault.shared.removeData(key: Constants.cart_info)
                     self.saved_order_id = orderId
-                    let urlstring = "https://cococubanorousehill.com.au/Stripeweb?order_id=" + "\(orderId)"
+                    let urlstring = "https://cygenpos.com/restaturant/cygenglobal/Stripeweb?order_id=" + "\(orderId)"
                     self.webview.load(NSURLRequest(url: NSURL(string: urlstring)! as URL) as URLRequest)
-                    self.scheduledTimerWithTimeInterval()
+//                    self.scheduledTimerWithTimeInterval()
+                    self.callPaymentStatusApi(param: ["order_id":self.saved_order_id])
                 }else{
                     AlertMsg(Msg: message, title: "Alert!", vc: self)
                 }
@@ -130,27 +134,28 @@ class PaymentViewController: UIViewController {
     // Payment Status Api
     func callPaymentStatusApi(param:[String:Any]){
 //            showActivityIndicator(uiView: self)
-        let req = NetworkManger.api.postRequest(reqType:.paymentStatus, params: param, responseType: CommonResponse.self, vc: self)
-            req.done { (response:CommonResponse) in
+        let req = NetworkManger.api.postRequest(reqType:.paymentStatus, params: param, responseType: PaymentStatusResponse.self, vc: self)
+            req.done { (response:PaymentStatusResponse) in
                 print(response)
                 let responseCode = response.responseCode
                 let message = response.message ?? ""
                 print(message)
                 if responseCode == "0"{
-                    if let paymen_s = response.payment_status{
+                    if let paymen_s = response.payment_code{
                         print("status:",paymen_s)
-                        if paymen_s == "Paid"{
+                        if paymen_s == 0 {
                             self.timer.invalidate()
                             goToNextVcThroughNavigation(currentVC: self, nextVCname: "SuccessViewController", nextVC: SuccessViewController.self)
-                        }else if paymen_s == "Unpaid"{
+                        }else if paymen_s == 2{
                             self.timer.invalidate()
                             goToNextVcThroughNavigation(currentVC: self, nextVCname: "FailureViewController", nextVC: FailureViewController.self)
 
-                        }else if paymen_s == "Pending"{
-
+                        }else if paymen_s == 1{
+                            self.callPaymentStatusApi(param: ["order_id":self.saved_order_id])
                         }else{
-                            self.timer.invalidate()
-                            goToNextVcThroughNavigation(currentVC: self, nextVCname: "FailureViewController", nextVC: FailureViewController.self)
+//                            self.timer.invalidate()
+                            let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "FailureViewController") as? FailureViewController
+                            self.navigationController?.pushViewController(vc!, animated: true)
                         }
                     }
                 }else{

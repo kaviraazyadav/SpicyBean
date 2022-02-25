@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
  *
  * This source code is licensed under the license found in the
@@ -16,7 +16,7 @@ NS_SWIFT_NAME(KeychainStore)
 @interface FBSDKKeychainStore : NSObject <FBSDKKeychainStore>
 
 @property (nonatomic, readonly, copy) NSString *service;
-@property (nonatomic, readonly, copy) NSString *accessGroup;
+@property (nullable, nonatomic, readonly, copy) NSString *accessGroup;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;

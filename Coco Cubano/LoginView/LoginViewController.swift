@@ -29,9 +29,10 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var fbBtnView: UIView!
     
     var comes_from = ""
-    
+    var token = ""
     override func viewDidLoad() {
         super.viewDidLoad()
+        token = userDefault.shared.getFcmToken(key:Constants.user_token)
         if (AccessToken.current != nil) {
             print("PreviousTokenExists")
             // User is logged in, do work such as go to next view controller.
@@ -40,6 +41,7 @@ class LoginViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+    
     override func viewDidLayoutSubviews() {
         self.emailView.viewBorder(radius: 10, color: .clear, borderWidth: 0)
         self.pswdView.viewBorder(radius: 10, color: .clear, borderWidth: 0)
@@ -100,7 +102,7 @@ class LoginViewController: UIViewController {
                 
                 self.callLoginSocialApi(param: ["UserName":fullName,
                                                 "email": userEmail,
-                                                "social_login": "FB"])
+                                                "social_login": "FB","device_type":"2","token_id":self.token])
             }
         })
     }
@@ -111,9 +113,14 @@ class LoginViewController: UIViewController {
     func login_validation (){
         let user_name = self.emailTxt.text ?? ""
         let password = self.pswdTxt.text ?? ""
-        
+       
         if user_name != "" && password != "" {
-            callLoginApi(param: ["username":user_name , "password":password])
+            if isValidEmail(email: user_name) == true {
+                callLoginApi(param: ["username":user_name , "password":password,"device_type":"2","token_id":token])
+            }else {
+                showToast(message: "Enter valid email", font: UIFont.systemFont(ofSize: 14))
+            }
+           
         }else{
             AlertMsg(Msg: "Please enter user name password", title: "Alert", vc: self)
         }
@@ -133,8 +140,11 @@ class LoginViewController: UIViewController {
                     if let user_id = response.list?.id{
                         userDefault.shared.saveUserId(data: user_id, key: Constants.user_id)
                         userDefault.shared.saveLoginInfo(data: response, key: Constants.login_info)
-                      goBack(vc: self)
-                    }
+                        if self.comes_from == "otp"{
+                            goToNextVcThroughNavigation(currentVC: self, nextVCname: "ViewController", nextVC: ViewController.self)
+                        }else{
+                            goBack(vc: self)
+                        }                    }
                 }else{
                     AlertMsg(Msg: message, title: "Alert!", vc: self)
                 }
@@ -193,8 +203,9 @@ class LoginViewController: UIViewController {
         self.loginWithGoogle()
     }
     func loginWithGoogle(){
-        let signInConfig = GIDConfiguration.init(clientID:"590799002026-3dv3dutidfl8njdflpr6qioiltkpqgr6.apps.googleusercontent.com")
+        let signInConfig = GIDConfiguration.init(clientID:"1071142016453-u4rrccj18i8npqri1droeigmam9g4bbj.apps.googleusercontent.com")
         GIDSignIn.sharedInstance.signIn(with: signInConfig, presenting: self) { user, error in
+            print(user,error)
           guard error == nil else { return }
 
           // If sign in succeeded, display the app's main content View.
@@ -203,16 +214,16 @@ class LoginViewController: UIViewController {
             guard error == nil else { return }
             guard let user = user else { return }
 
-            let emailAddress = user.profile?.email
+            let emailAddress = user.profile?.email ?? ""
 
-            let fullName = user.profile?.name
-            let givenName = user.profile?.givenName
-            let familyName = user.profile?.familyName
+            let fullName = user.profile?.name ?? ""
+            _ = user.profile?.givenName ?? ""
+            _ = user.profile?.familyName ?? ""
 
-            let profilePicUrl = user.profile?.imageURL(withDimension: 320)
+            _ = user.profile?.imageURL(withDimension: 320)
             self.callLoginSocialApi(param: ["UserName":fullName,
                                             "email": emailAddress,
-                                            "social_login": "google"])
+                                            "social_login": "google","device_type":"2","token_id":self.token])
         }
 
     }

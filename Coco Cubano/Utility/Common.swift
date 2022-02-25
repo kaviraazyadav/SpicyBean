@@ -529,6 +529,11 @@ func emailAndPasswordValidation (email:String,password:String,vc:UIViewControlle
     }
  return true
 }
+func isValidPassword(pswd:String) -> Bool {
+    let passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[d$@$!%*?&#])[A-Za-z\\dd$@$!%*?&#]{6,}"
+    return NSPredicate(format: "SELF MATCHES %@", passwordRegex).evaluate(with: pswd)
+}
+
 func newPetValidation (petImg:UIImage,petName:String,aboutPet:String,petDob:String,vc:UIViewController) -> Bool{
     if petImg == UIImage(named: "placeholder"){
         showToast(message: "Please choose your pet image", vc: vc)

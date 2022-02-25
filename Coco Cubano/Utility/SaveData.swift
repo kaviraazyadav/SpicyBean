@@ -31,6 +31,27 @@ class userDefault {
     func getbase_url(key:String) -> String{
         return  (UserDefaults.standard.string(forKey: key) ?? "")
     }
+    // save device token
+    func save_device_token(data:Any,key:String){
+        UserDefaults.standard.set(data, forKey: key) //setObject
+    }
+    func getdevice_token(key:String) -> String{
+        return  (UserDefaults.standard.string(forKey: key) ?? "")
+    }
+    // save user lat
+    func save_user_lat(data:Any,key:String){
+        UserDefaults.standard.set(data, forKey: key) //setObject
+    }
+    func getuser_lat(key:String) -> String{
+        return  (UserDefaults.standard.string(forKey: key) ?? "")
+    }
+    // save user long
+    func save_user_long(data:Any,key:String){
+        UserDefaults.standard.set(data, forKey: key) //setObject
+    }
+    func getuser_long(key:String) -> String{
+        return  (UserDefaults.standard.string(forKey: key) ?? "")
+    }
 
     // save user info
     func saveUserInfo(data:Any,key:String){

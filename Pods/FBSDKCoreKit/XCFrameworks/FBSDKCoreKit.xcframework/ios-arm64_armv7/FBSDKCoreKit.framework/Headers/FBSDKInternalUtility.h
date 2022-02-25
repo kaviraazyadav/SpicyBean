@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
  *
  * This source code is licensed under the license found in the
@@ -38,8 +38,10 @@ NS_SWIFT_NAME(InternalUtility)
   <FBSDKAppAvailabilityChecker, FBSDKAppURLSchemeProviding, FBSDKInternalUtility>
 #endif
 
+#if !FBTEST
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
+#endif
 
 @property (class, nonnull, readonly) FBSDKInternalUtility *sharedUtility;
 
@@ -50,39 +52,6 @@ NS_SWIFT_NAME(InternalUtility)
  return the main bundle.
  */
 @property (nonatomic, readonly, strong) NSBundle *bundleForStrings;
-
-/**
-  Constructs an URL for the current app.
- @param host The host for the URL.
- @param path The path for the URL.
- @param queryParameters The query parameters for the URL.  This will be converted into a query string.
- @param errorRef If an error occurs, upon return contains an NSError object that describes the problem.
- @return The app URL.
- */
-- (NSURL *)appURLWithHost:(NSString *)host
-                     path:(NSString *)path
-          queryParameters:(NSDictionary<NSString *, NSString *> *)queryParameters
-                    error:(NSError *__autoreleasing *)errorRef;
-
-/**
-  Parses an FB url's query params (and potentially fragment) into a dictionary.
- @param url The FB url.
- @return A dictionary with the key/value pairs.
- */
-- (NSDictionary<NSString *, id> *)parametersFromFBURL:(NSURL *)url;
-
-/**
-  Constructs a Facebook URL.
- @param hostPrefix The prefix for the host, such as 'm', 'graph', etc.
- @param path The path for the URL.  This may or may not include a version.
- @param queryParameters The query parameters for the URL.  This will be converted into a query string.
- @param errorRef If an error occurs, upon return contains an NSError object that describes the problem.
- @return The Facebook URL.
- */
-- (NSURL *)facebookURLWithHostPrefix:(NSString *)hostPrefix
-                                path:(NSString *)path
-                     queryParameters:(NSDictionary<NSString *, NSString *> *)queryParameters
-                               error:(NSError *__autoreleasing *)errorRef;
 
 /**
   Tests whether the supplied URL is a valid URL for opening in the browser.
@@ -100,28 +69,6 @@ NS_SWIFT_NAME(InternalUtility)
  @return YES if the objects are equal, otherwise NO.
  */
 - (BOOL)object:(id)object isEqualToObject:(id)other;
-
-/**
-  Extracts permissions from a response fetched from me/permissions
- @param responseObject the response
- @param grantedPermissions the set to add granted permissions to
- @param declinedPermissions the set to add declined permissions to.
- */
-- (void)extractPermissionsFromResponse:(NSDictionary<NSString *, id> *)responseObject
-                    grantedPermissions:(NSMutableSet<NSString *> *)grantedPermissions
-                   declinedPermissions:(NSMutableSet<NSString *> *)declinedPermissions
-                    expiredPermissions:(NSMutableSet<NSString *> *)expiredPermissions;
-
-/**
-  validates that the app ID is non-nil, throws an NSException if nil.
- */
-- (void)validateAppID;
-
-/**
- Validates that the client access token is non-nil, otherwise - throws an NSException otherwise.
- Returns the composed client access token.
- */
-- (NSString *)validateRequiredClientAccessToken;
 
 /**
   Attempts to find the first UIViewController in the view's responder chain. Returns nil if not found.

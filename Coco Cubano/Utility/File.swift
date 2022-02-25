@@ -30,6 +30,7 @@ class Constants {
     static let delete_item_cart_api = "deleteCart"
     static let decrement_item_cart = "decrementCart"
     static let increment_item_cart = "incrementCart"
+    static let notify_nearby = "notify_nearby"
 
 
   
@@ -39,6 +40,9 @@ class Constants {
     // Save Data Constants
     
     static let user_id = "user_id"
+    static let user_lat = "user_lat"
+    static let user_long = "user_long"
+    static let user_token = "user_token"
     static let outlet_id = "outlet_id"
     static let cart_info = "cart_info"
     static let badge_count = "badge_count"

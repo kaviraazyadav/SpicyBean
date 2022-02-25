@@ -6,27 +6,31 @@
 	<dict>
 		<key>Headers/FBSDKDeviceLoginCodeInfo.h</key>
 		<data>
-		RWCmPcPiM7STZuy9rMDB5gtvTWU=
+		27Yk/8kv/twSJH6Gtdq46D1bdS8=
 		</data>
 		<key>Headers/FBSDKDeviceLoginManager.h</key>
 		<data>
-		2y+BOwSTR4AzKFc3JIso+TB+Jis=
+		2X2XoTaqnbRXsQxJeF/PJevwcZc=
+		</data>
+		<key>Headers/FBSDKDeviceLoginManagerDelegate.h</key>
+		<data>
+		lw6xwTBORqNjg3j1+yjeM2TOaMQ=
 		</data>
 		<key>Headers/FBSDKDeviceLoginManagerResult.h</key>
 		<data>
-		I+aUykBgwmxJNGqgVT3H+4ji4fA=
+		ME9h7b6gLm0KWTMj6Ex1IVKlphk=
 		</data>
 		<key>Headers/FBSDKLoginConstants.h</key>
 		<data>
-		T8FH+QdeZFH6fAL4/VQHYNe7bGU=
+		EXZSTnbgy9yJAdcd8Lnum4Jp6N0=
 		</data>
 		<key>Headers/FBSDKLoginKit.h</key>
 		<data>
-		okhMEaAt0aDVHt7CHvTqlDyvWWo=
+		nYuxNedxFbhnUczuLah9p5TohyM=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		o2c+mht6q9W4W3byQcTyV1LHOzM=
+		0lXSfCUZFvfN+2J+owUHvdqG/rs=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -39,55 +43,66 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			RWCmPcPiM7STZuy9rMDB5gtvTWU=
+			27Yk/8kv/twSJH6Gtdq46D1bdS8=
 			</data>
 			<key>hash2</key>
 			<data>
-			y74PuDYlFpAJ/XTmrLi55Pv3+lJoUR/d2XxFmHDb4eQ=
+			Gasljpo0T00bkh4lXwfqPomRHfwI6ubQk7Py9q5F4Ck=
 			</data>
 		</dict>
 		<key>Headers/FBSDKDeviceLoginManager.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			2y+BOwSTR4AzKFc3JIso+TB+Jis=
+			2X2XoTaqnbRXsQxJeF/PJevwcZc=
 			</data>
 			<key>hash2</key>
 			<data>
-			FkPk1xth+1O5nfs4begRpE0Uw6/cQyIHTwIXDiItJ/s=
+			ja+yvkwE+rEzyoIpOapG9ArMgvJYFFGQzeFvJqMMiyo=
+			</data>
+		</dict>
+		<key>Headers/FBSDKDeviceLoginManagerDelegate.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			lw6xwTBORqNjg3j1+yjeM2TOaMQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			HUNFb2hZJLSWvjp6CDpKTpZuB59Uqwy3wr7RJTc83u4=
 			</data>
 		</dict>
 		<key>Headers/FBSDKDeviceLoginManagerResult.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			I+aUykBgwmxJNGqgVT3H+4ji4fA=
+			ME9h7b6gLm0KWTMj6Ex1IVKlphk=
 			</data>
 			<key>hash2</key>
 			<data>
-			xTq+jeHQp+2GBM/842QI1MAi4Tbr/KWyLGZ0fQx83MQ=
+			4csBe4mcuLJl+wqVqTI6UFQLUfxGum8w6pH7vIPLLxA=
 			</data>
 		</dict>
 		<key>Headers/FBSDKLoginConstants.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			T8FH+QdeZFH6fAL4/VQHYNe7bGU=
+			EXZSTnbgy9yJAdcd8Lnum4Jp6N0=
 			</data>
 			<key>hash2</key>
 			<data>
-			17yJgz/zJilGGFH82Dz0kA1QQvdIOhXQqPFgkG9t5qk=
+			Sp2YAWuGjria4NVX0BE1TvE/YAo5YyRZLnT/sLL/o5c=
 			</data>
 		</dict>
 		<key>Headers/FBSDKLoginKit.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			okhMEaAt0aDVHt7CHvTqlDyvWWo=
+			nYuxNedxFbhnUczuLah9p5TohyM=
 			</data>
 			<key>hash2</key>
 			<data>
-			Y+ycP5YcirPFXtxkY+RNu4LVwsXpKqA+ZxAqqrzpx0U=
+			0rHJVlhK1rAmH6GiuVC6AVtsPmB2eQEWQPM0DKR3wu8=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

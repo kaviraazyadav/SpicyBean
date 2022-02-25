@@ -76,6 +76,7 @@ class CheckoutViewController: UIViewController{
     var addOnQty_arr = [String]()
     var addOnTotal_price = ""
     var sub_total = ""
+    var grand_total = ""
     var selected_address = ""
     
     
@@ -106,20 +107,22 @@ class CheckoutViewController: UIViewController{
         if mode_of_delivery == "1"{
             self.searchAddressHeight.constant = 0
             self.streetHeight.constant = 0
+            self.noteLblHeight.constant = 0
             self.delTimeTxt.placeholder = "Enter Pickup Time"
             selected_address = "Shop 1/145 McEvoy St, Alexandria NSW 2015,Australia"
             self.streetTxt.text = "145"
         }else if mode_of_delivery == "2" {
             self.defaultAddressHeight.constant = 0
+            self.noteLblHeight.constant = 0
             self.searchAddressHeight.constant = 50
             self.streetHeight.constant = 50
             self.delTimeTxt.placeholder = "Enter Delivery Time"
             self.callDefaultAddressListApi(param: ["customerId":userDefault.shared.getUserId(key: Constants.user_id)])
         }else if mode_of_delivery == "" {
             self.defaultAddressHeight.constant = 0
-            self.nameViewHeight.constant = 0
-            self.mobileViewHeight.constant = 0
-            self.emailViewHeight.constant = 0
+//            self.nameViewHeight.constant = 0
+//            self.mobileViewHeight.constant = 0
+//            self.emailViewHeight.constant = 0
             self.searchAddressHeight.constant = 0
             self.delPikHeight.constant = 0
             self.noteLblHeight.constant = 0
@@ -238,7 +241,7 @@ class CheckoutViewController: UIViewController{
 
     @objc func handleDatePicker(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "DD-MM-YYYY HH:mm"
+        dateFormatter.dateFormat = "dd-MM-YYYY hh:mm"
         delTimeTxt.text = dateFormatter.string(from: sender.date)
 
     }
@@ -273,7 +276,10 @@ class CheckoutViewController: UIViewController{
 
             }else{
                 let single_amount = Double(item.product_price!)
-                final_amount += single_amount!
+                let qty = Double(item.product_quantity ?? "")
+                let amountBasedOnQty = single_amount! * qty!
+                let round_value = Double(round(1000 * amountBasedOnQty) / 1000)
+                final_amount += round_value
             }
             item_qtyArr.append(item.product_quantity ?? "")
             item_priceArr.append(item.product_price ?? "")
@@ -300,7 +306,8 @@ class CheckoutViewController: UIViewController{
             self.checkoutTotalLbl.text = "$0.0"
         }else {
             let round_value = Double(round(1000 * final_amount) / 1000)
-            self.sub_total = "$\(round_value)"
+            self.sub_total = "\(round_value)"
+            self.grand_total = "\(round_value)"
             self.subTotalV.text = "$\(round_value)"
             self.taxVlbl.text = "$0.0"
             self.deliveryFee.text = "$0.0"
@@ -329,22 +336,28 @@ class CheckoutViewController: UIViewController{
         let flat_no = self.streetTxt.text ?? ""
         let location = self.search_addressTxt.text ?? ""
         let delivery_time = self.delTimeTxt.text ?? ""
+        let lat = userDefault.shared.getuser_lat(key: Constants.user_lat)
+        let long = userDefault.shared.getuser_long(key: Constants.user_long)
         if mode_of_delivery == "2"{
             if name != "" && email != "" && mobile != "" && flat_no != "" && location != "" {
                 if delivery_time != "" {
-                    self.calladdAddressListApi(param: ["customerId":userDefault.shared.getUserId(key: Constants.user_id),
-                        "first_name":name,
-                        "email":email,
-                        "mobile":mobile,
-                        "flatno":flat_no,
-                        "location":location,
-                        "landmark":"near test",
-                        "address":location,
-                        "userLat":"71.928282",
-                        "userLong":"79.93939",
-                        "note":self.commentTxtView.text ?? ""
-                        ])
-                    self.movetoPayment()
+                    if isValidEmail(email: email) == true{
+                        self.calladdAddressListApi(param: ["customerId":userDefault.shared.getUserId(key: Constants.user_id),
+                            "first_name":name,
+                            "email":email,
+                            "mobile":mobile,
+                            "flatno":flat_no,
+                            "location":location,
+                            "landmark":"near test",
+                            "address":location,
+                            "userLat":lat,
+                            "userLong":long,
+                            "note":self.commentTxtView.text ?? ""
+                            ])
+                        self.movetoPayment()
+                    }else{
+                        showToast(message: "Please enter valid email", font: UIFont.systemFont(ofSize: 14))
+                    }
                 }else {
                     AlertMsg(Msg: "Please enter delivery time", title: "Alert!", vc: self)
                 }
@@ -354,14 +367,29 @@ class CheckoutViewController: UIViewController{
             }
         } else if mode_of_delivery == "1"{
             if delTimeTxt.text != "" {
-                self.movetoPayment()
+                if isValidEmail(email: email) == true{
+                    self.movetoPayment()
+                }else{
+                    showToast(message: "Enter valid email", font: UIFont.systemFont(ofSize: 15))
+                }
+               
             }else {
                 AlertMsg(Msg: "Please enter pick up time", title: "Alert!", vc: self)
             }
         }
         else{
             // for table top
-            self.movetoPayment()
+            if email != "" && name != "" && mobile != "" {
+                if isValidEmail(email: email) == true{
+                    self.movetoPayment()
+                }else{
+                    showToast(message: "Enter valid email", font: UIFont.systemFont(ofSize: 15))
+                }
+               
+            }else{
+               AlertMsg(Msg: "Please enter customer details", title: "Alert!", vc: self)
+            }
+           
         }
        
 
@@ -377,6 +405,7 @@ class CheckoutViewController: UIViewController{
         vc.addOnOrice_arr = self.addOnOrice_arr
         vc.addOnTotal_price = self.addOnTotal_price
         vc.sub_total = self.sub_total
+        vc.grand_total = self.grand_total
         vc.note = self.commentTxtView.text ?? ""
         vc.name = self.nameTxt.text ?? ""
         vc.email = self.emailTxtx.text ?? ""
@@ -399,6 +428,17 @@ extension CheckoutViewController : UITextFieldDelegate {
             self.pickUpDate(delTimeTxt)
         }
     }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == mobileTxt{
+            let maxLength = 10
+            
+            let currentString: NSString = (textField.text ?? "") as NSString
+            let newString: NSString =
+            currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        }
+       return true
+    }
 }
 extension CheckoutViewController : UITextViewDelegate{
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -417,5 +457,6 @@ extension CheckoutViewController : UITextViewDelegate{
         }
         textView.resignFirstResponder()
     }
+    
 
 }

@@ -9,7 +9,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.590799002026-3dv3dutidfl8njdflpr6qioiltkpqgr6</string>
+				<string>com.googleusercontent.apps.1071142016453-u4rrccj18i8npqri1droeigmam9g4bbj</string>
 			</array>
 		</dict>
 		<dict>
@@ -17,16 +17,16 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb673637597093705</string>
+				<string>fb587326822313761</string>
 			</array>
 		</dict>
 	</array>
 	<key>FacebookAppID</key>
-	<string>673637597093705</string>
+	<string>587326822313761</string>
 	<key>FacebookClientToken</key>
-	<string>a02afe63869827928538d102ce16f6e6</string>
+	<string>cc575ae1628945ba8673c15b16054fcf</string>
 	<key>FacebookDisplayName</key>
-	<string>CocoCubano Rousehill</string>
+	<string>Spicy Bean</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationQueriesSchemes</key>

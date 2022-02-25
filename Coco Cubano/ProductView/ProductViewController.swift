@@ -93,6 +93,8 @@ pro_table: UITableView!
     override func viewDidLayoutSubviews() {
         catBtn.circleViewWithShadow()
         self.badgeLbl.layer.cornerRadius = self.badgeLbl.frame.width/2
+        self.badgeLbl.layer.borderWidth = 1
+        self.badgeLbl.layer.borderColor = hexStringToUIColor(hex: "#fcb419").cgColor
         self.badgeLbl.layer.masksToBounds = true
         self.searchView.viewBorder(radius: 5, color: .lightGray, borderWidth: 1)
     }

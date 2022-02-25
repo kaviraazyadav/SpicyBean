@@ -11,14 +11,37 @@ import IQKeyboardManagerSwift
 import GoogleSignIn
 import FBSDKCoreKit
 import Firebase
+import FirebaseAnalytics
+import CoreLocation
+var user_lat = ""
+var user_long = ""
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, CLLocationManagerDelegate {
+    var locationManager:CLLocationManager!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+
         FirebaseApp.configure()
+        Messaging.messaging().delegate = self
+        if #available(iOS 10.0, *) {
+          // For iOS 10 display notification (sent via APNS)
+          UNUserNotificationCenter.current().delegate = self
+
+          let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+          UNUserNotificationCenter.current().requestAuthorization(
+            options: authOptions,
+            completionHandler: { _, _ in }
+          )
+            // For iOS 10 data message (sent via FCM
+            Messaging.messaging().delegate = self
+        } else {
+          let settings: UIUserNotificationSettings =
+            UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+          application.registerUserNotificationSettings(settings)
+        }
+
+        application.registerForRemoteNotifications()
 
         IQKeyboardManager.shared.enable = true
         
@@ -36,9 +59,62 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             didFinishLaunchingWithOptions: launchOptions
         )
 
-
+        self.getUserCurrentLocation()
         return true
     }
+    
+    func getUserCurrentLocation(){
+        locationManager = CLLocationManager()
+           locationManager.delegate = self
+           locationManager.desiredAccuracy = kCLLocationAccuracyBest
+           locationManager.requestAlwaysAuthorization()
+
+           if CLLocationManager.locationServicesEnabled(){
+               locationManager.startUpdatingLocation()
+           }
+
+    }
+    
+    // Location delegate
+    //MARK: - location delegate methods
+func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    let userLocation :CLLocation = locations[0] as CLLocation
+    user_lat = "\(userLocation.coordinate.latitude)"
+    user_long = "\(userLocation.coordinate.longitude)"
+//    print("user latitude = \(user_lat)")
+//    print("user longitude = \(user_long)")
+    
+    userDefault.shared.save_user_lat(data:"\(userLocation.coordinate.latitude)", key: Constants.user_lat)
+    userDefault.shared.save_user_long(data: "\(userLocation.coordinate.longitude)", key: Constants.user_long)
+
+    let geocoder = CLGeocoder()
+    geocoder.reverseGeocodeLocation(userLocation) { (placemarks, error) in
+        if (error != nil){
+//            print("error in reverseGeocode")
+        }
+//        let placemark = placemarks! as [CLPlacemark]
+//        if placemark.count>0{
+//            let placemark = placemarks![0]
+//            print(placemark.locality!)
+//            print(placemark.administrativeArea!)
+//            print(placemark.country!)
+//
+//        }
+    }
+
+}
+func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    print("Error \(error)")
+}
+
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+//      print("Firebase registration token: \(String(describing: fcmToken))")
+        print("Firebase registration token:\(fcmToken ?? "")")
+        
+        userDefault.shared.save_device_token(data: fcmToken ?? "", key: Constants.user_token)
+    }
+   
     
     func application(
         _ app: UIApplication,
@@ -118,3 +194,51 @@ var persistentContainer: NSPersistentContainer = {
 
 }
 
+@available(iOS 10, *)
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func application(_ application: UIApplication,
+                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print("deviceToken",deviceToken)
+      Messaging.messaging().apnsToken = deviceToken
+    }
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error){
+        debugPrint("didFailToRegisterForRemoteNotificationsWithError: \(error)")
+    }
+  // Receive displayed notifications for iOS 10 devices.
+  func userNotificationCenter(_ center: UNUserNotificationCenter,
+                              willPresent notification: UNNotification,
+                              withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions)
+                                -> Void) {
+    let userInfo = notification.request.content.userInfo
+
+    print(userInfo)
+
+    // Change this to your preferred presentation option
+      completionHandler([[.alert, .sound , .badge]])
+  }
+
+  func userNotificationCenter(_ center: UNUserNotificationCenter,
+                              didReceive response: UNNotificationResponse,
+                              withCompletionHandler completionHandler: @escaping () -> Void) {
+    let userInfo = response.notification.request.content.userInfo
+
+    print(userInfo)
+
+    completionHandler()
+  }
+    func application(_ application: UIApplication,
+                     didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult)
+                       -> Void) {
+      // If you are receiving a notification message while your app is in the background,
+      // this callback will not be fired till the user taps on the notification launching the application.
+      // TODO: Handle data of notification
+
+  
+      // Print full message.
+      print(userInfo)
+
+      completionHandler(UIBackgroundFetchResult.newData)
+    }
+
+}

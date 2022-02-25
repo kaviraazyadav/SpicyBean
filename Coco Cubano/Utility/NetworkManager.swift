@@ -9,7 +9,7 @@ import PromiseKit
 import Alamofire
 import UIKit
 // live Server_Url
-let Base_Url = "https://cococubanorousehill.com.au/coco_api/api/"
+let Base_Url = "https://cygenpos.com/cygenposapi/restu/v1/frontend/"
 // Test Server_Url
 //let Base_Url = "http://182.70.254.235:3001"
 
@@ -36,6 +36,7 @@ enum RequestType {
     case delete_cart_item
     case increment_item
     case decrement_item
+    case location
 }
 
 class NetworkManger {
@@ -44,17 +45,21 @@ class NetworkManger {
     let tokenHeader : HTTPHeaders = ["api-token":"ODdwUk5nVEM0U1hTdGVyNWZtd2I5WE9CM0ExbzNTVHBvU2U1akJNN3F0WTFPOEZGTlpnbjVpRGRhZkt25c7d83f082b2c"]
     
     func postRequest<T:Decodable>(reqType:RequestType ,params:[String:Any],responseType : T.Type,vc:UIViewController) -> Promise <T> {
+        var new_param = [String:Any] ()
         return Promise <T> { resolver in
             let urlString = getUrl(requestType: reqType)
             let req = reqType
             print("URL:",urlString)
+            new_param = params
+            new_param["outlet_id"] = "1824"
+            print("new_param",new_param)
             guard let url = URL(string: urlString) else {return}
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
-          request.setValue("1234", forHTTPHeaderField: "api-key")
+          request.setValue("1234", forHTTPHeaderField: "restaurantToken")
 
             do {
-                request.httpBody   = try JSONSerialization.data(withJSONObject: params)
+                request.httpBody   = try JSONSerialization.data(withJSONObject: new_param)
             } catch let error {
                 print("Error : \(error.localizedDescription)")
             }
@@ -190,6 +195,8 @@ class NetworkManger {
             return Base_Url + Constants.increment_item_cart
         case .decrement_item:
             return Base_Url + Constants.decrement_item_cart
+        case .location:
+            return "https://cygenpos.com/cygenposapi/restu/v1/api/notify_nearby"
         }
         
     }

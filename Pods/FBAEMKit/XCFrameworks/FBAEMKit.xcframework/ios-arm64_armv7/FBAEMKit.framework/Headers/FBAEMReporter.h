@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
  *
  * This source code is licensed under the license found in the
@@ -32,7 +32,7 @@ NS_SWIFT_NAME(AEMReporter)
  @param appID   An optional Facebook app ID, if it's null, we will get it from info.plist file with key: FacebookAppID
  */
 + (void)configureWithNetworker:(nullable id<FBAEMNetworking>)networker
-                         appID:(nullable NSString *)appID;
+                         appID:(nullable NSString *)appID __attribute__((deprecated("use configureWithNetworker:appID:reporter: instead.")));
 
 /**
 
@@ -60,12 +60,18 @@ NS_SWIFT_NAME(AEMReporter)
 + (void)enable;
 
 /**
-
- Control whether to enable catalog reporting
+ Control whether to enable conversion filtering
 
  This function should be called in application(_:open:options:) from ApplicationDelegate
  */
-+ (void)setCatalogReportEnabled:(BOOL)enabled;
++ (void)setConversionFilteringEnabled:(BOOL)enabled;
+
+/**
+ Control whether to enable catalog matching
+
+ This function should be called in application(_:open:options:) from ApplicationDelegate
+ */
++ (void)setCatalogMatchingEnabled:(BOOL)enabled;
 
 /**
 

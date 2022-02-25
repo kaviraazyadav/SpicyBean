@@ -12,7 +12,7 @@ var user_id = ""
 var mode_of_delivery = ""
 var table_number = ""
 class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate {
-   
+    
     
     @IBOutlet weak var cat_btn: UIButton!
     @IBOutlet weak var tab_barView: UIView!
@@ -59,31 +59,44 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
     var each_pro_price = Double()
     var cart_item = CartProductLists()
     var badge_count = ""
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-      
-        mode_of_delivery = "2"
+        mode_of_delivery = "1"
         searchBtn.contentHorizontalAlignment = .left
         self.notificationHits()
-        self.deliveryBtn.backgroundColor = .white
-        self.callBannerListApi(param: ["":""])
-        self.callProductListApi(param: ["category_id":"112"])
+        self.pickUpBtn.backgroundColor = .white
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        navigationController?.navigationBar.barStyle = .black
+    }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
+        let seconds = 2.0
+        self.callBannerListApi(param: [:])
+        self.callProductListApi(param: ["category_id":"122"])
         user_id = userDefault.shared.getUserId(key: Constants.user_id)
         if user_id != ""{
             self.callViewCartApi(param: ["user_id":user_id], from: "")
+            DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+                self.calllocationApi(param: ["user_id": user_id,
+                                             "latitude": userDefault.shared.getuser_lat(key: Constants.user_lat),
+                                             "longitude": userDefault.shared.getuser_long(key: Constants.user_long),])
+            }
+           
+        }else {
+            self.badgeLbl.text = "0"
         }
     }
     
     func notificationHits(){
         NotificationCenter.default.addObserver(self, selector: #selector(addOnProductsDatatoCart(notification:)), name: .addOnData_tocart, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(qr_data(notification:)), name: .qr_code_scanned, object: nil)
-    
+        
     }
     @objc func addOnProductsDatatoCart(notification:Notification)
     {
@@ -98,12 +111,12 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     self.callViewCartApi(param: ["user_id":user_id], from: "addon")
                 }
-
+                
             }
-
+            
         }
-      
-       
+        
+        
     }
     
     // QR DATA
@@ -122,21 +135,21 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
             self.table_top.backgroundColor = .clear
             mode_of_delivery = "2"
         }
-
-      
-       
+        
+        
+        
     }
-
+    
     
     func update_table_cell(item_id:String){
         for (i, item) in self.products_arr.enumerated() {
-           if let pro_id = item.id {
+            if let pro_id = item.id {
                 if item_id == pro_id {
                     self.products_arr[i].is_pro_addedTo_cart = true
                     self.products_arr[i].pro_qty = "1"
                 }
             }
-           
+            
         }
         self.pro_table.tableViewReloadInMainThread()
     }
@@ -149,79 +162,103 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
         self.pickUpBtn.viewBorder(radius: 22, color: .clear, borderWidth: 0)
         self.table_top.viewBorder(radius: 22, color: .clear, borderWidth: 0)
         self.badgeLbl.layer.cornerRadius = self.badgeLbl.frame.width/2
+        self.badgeLbl.layer.borderWidth = 1
+        self.badgeLbl.layer.borderColor = hexStringToUIColor(hex: "#fcb419").cgColor
         self.badgeLbl.layer.masksToBounds = true
         searchViw.viewBorder(radius: 5, color: .clear, borderWidth: 0)
         
         self.bookTableImg.viewBorder(radius: 10, color: .clear, borderWidth: 0)
         self.setScrollContentInset()
-    
+        
     }
     
     func setScrollContentInset(){
-        DispatchQueue.main.async {
-            let count = self.products_arr.count
-            self.scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + CGFloat (Double(count) * 120))
-            self.tableViewHeight.constant = CGFloat (Double(count) * 120)
-            self.contentViewHeight.constant = self.view.frame.size.height + self.tableViewHeight.constant - 960
-
-        }
-
         let deviceModel = UIDevice.modelName
         print(deviceModel)
-
+        DispatchQueue.main.async {
+            self.scrollView.contentInsetAdjustmentBehavior = .never
+            let count = self.products_arr.count
+//            self.scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + CGFloat (Double(count) * 120))
+            self.tableViewHeight.constant = CGFloat (Double(count) * 120)
+            self.contentViewHeight.constant = self.view.frame.size.height + self.tableViewHeight.constant - 950
+        }
+        
+       
+        
     }
     
     // Banner Api
     func callBannerListApi(param:[String:Any]){
-            showActivityIndicator(uiView: self)
+        showActivityIndicator(uiView: self)
         let req = NetworkManger.api.postRequest(reqType:.banners, params: param, responseType: BannerResponse.self, vc: self)
-            req.done { (response:BannerResponse) in
-                hideActivityIndicator(uiView: self)
-                print(response)
-                let responseCode = response.responseCode
-                let message = response.message ?? ""
-                print(message)
-                if responseCode == "0"{
-                    
-                    if let items = response.list{
-                        self.banner_list_arr = items
-                        self.createBanner()
-                    }
-
-                }else{
-                    AlertMsg(Msg: message, title: "Alert!", vc: self)
+        req.done { (response:BannerResponse) in
+            hideActivityIndicator(uiView: self)
+            print(response)
+            let responseCode = response.responseCode
+            let message = response.message ?? ""
+            print(message)
+            if responseCode == "0"{
+                
+                if let items = response.list{
+                    self.banner_list_arr = items
+                    self.createBanner()
                 }
-            }.catch { (error) in
-                print(error)
-                hideActivityIndicator(uiView: self)
+                
+            }else{
+                //AlertMsg(Msg: message, title: "Alert!", vc: self)
             }
+        }.catch { (error) in
+            print(error)
+            hideActivityIndicator(uiView: self)
+        }
     }
-
+    
     // Product Api
     func callProductListApi(param:[String:Any]){
-            showActivityIndicator(uiView: self)
+        showActivityIndicator(uiView: self)
         let req = NetworkManger.api.postRequest(reqType:.products, params: param, responseType: ProductsResponse.self, vc: self)
-            req.done { (response:ProductsResponse) in
-                hideActivityIndicator(uiView: self)
-                print(response)
-                let responseCode = response.responseCode
-                let message = response.message ?? ""
-                print(message)
-                if responseCode == "0"{
-                    
-                    if let items = response.list{
-                        self.products_arr = items
-                        self.setScrollContentInset()
-                        self.pro_table.tableViewReloadInMainThread()
-                    }
-
-                }else{
-                    AlertMsg(Msg: message, title: "Alert!", vc: self)
+        req.done { (response:ProductsResponse) in
+            hideActivityIndicator(uiView: self)
+            print(response)
+            let responseCode = response.responseCode
+            let message = response.message ?? ""
+            print(message)
+            self.products_arr.removeAll()
+            if responseCode == "0"{
+                
+                if let items = response.list{
+                    self.products_arr = items
+                    self.setScrollContentInset()
+                    self.pro_table.tableViewReloadInMainThread()
                 }
-            }.catch { (error) in
-                print(error)
-                hideActivityIndicator(uiView: self)
+                
+            }else{
+                //                    AlertMsg(Msg: message, title: "Alert!", vc: self)
             }
+        }.catch { (error) in
+            print(error)
+            hideActivityIndicator(uiView: self)
+        }
+    }
+    
+    // location Api
+    func calllocationApi(param:[String:Any]){
+//        showActivityIndicator(uiView: self)
+        let req = NetworkManger.api.postRequest(reqType:.location, params: param, responseType: CommonResponse.self, vc: self)
+        req.done { (response:CommonResponse) in
+            hideActivityIndicator(uiView: self)
+            print(response)
+            let responseCode = response.responseCode
+            let message = response.message ?? ""
+            print(message)
+            if responseCode == "0"{
+                
+            }else{
+            }
+        }.catch { (error) in
+            print(error)
+            hideActivityIndicator(uiView: self)
+        }
     }
     
     func send_pro_to_cartServer(data:CartProductLists){
@@ -244,8 +281,8 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
             }
         }
         
-       
-
+        
+        
         self.callAddToCartApi(param: ["user_id":userId,
                                       "productId":id,
                                       "productPrice":price,
@@ -257,56 +294,56 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
     }
     // Add_to_cart Api
     func callAddToCartApi(param:[String:Any]){
-//            showActivityIndicator(uiView: self)
+        //            showActivityIndicator(uiView: self)
         let req = NetworkManger.api.postRequest(reqType:.addToCart, params: param, responseType: CommonResponse.self, vc: self)
-            req.done { (response:CommonResponse) in
-                hideActivityIndicator(uiView: self)
-                print(response)
-                let responseCode = response.responseCode
-                let message = response.message ?? ""
-                print(message)
-                if responseCode == "0"{
-                    AlertMsg(Msg: message, title: "Message", vc: self)
-                    self.callViewCartApi(param: ["user_id":user_id], from: "")
-                }else{
-                 AlertMsg(Msg: message, title: "Alert", vc: self)
-                }
-            }.catch { (error) in
-                print(error)
-                hideActivityIndicator(uiView: self)
+        req.done { (response:CommonResponse) in
+            hideActivityIndicator(uiView: self)
+            print(response)
+            let responseCode = response.responseCode
+            let message = response.message ?? ""
+            print(message)
+            if responseCode == "0"{
+                AlertMsg(Msg: message, title: "Message", vc: self)
+                self.callViewCartApi(param: ["user_id":user_id], from: "")
+            }else{
+                AlertMsg(Msg: message, title: "Alert", vc: self)
             }
+        }.catch { (error) in
+            print(error)
+            hideActivityIndicator(uiView: self)
+        }
     }
     
     // View Cart Api
     func callViewCartApi(param:[String:Any],from:String){
-//            showActivityIndicator(uiView: self)
+        //            showActivityIndicator(uiView: self)
         let req = NetworkManger.api.postRequest(reqType:.view_cart, params: param, responseType: ViewCartResponse.self, vc: self)
-            req.done { (response:ViewCartResponse) in
-                hideActivityIndicator(uiView: self)
-                print(response)
-                let responseCode = response.responseCode
-                let message = response.message ?? ""
-                print(message)
-                if responseCode == "0"{
-                    if let temp_count = response.count{
-                        self.badge_count = "\(temp_count)"
-                        self.badgeLbl.text = "\(temp_count)"
-                    }
-                    if from == "addon"{
-                        AlertMsg(Msg: "Product updated successfully", title: "Message", vc: self)
-                    }
-                }else{
-//                 AlertMsg(Msg: message, title: "Alert", vc: self)
-                    self.badgeLbl.text = "0"
+        req.done { (response:ViewCartResponse) in
+            hideActivityIndicator(uiView: self)
+            print(response)
+            let responseCode = response.responseCode
+            let message = response.message ?? ""
+            print(message)
+            if responseCode == "0"{
+                if let temp_count = response.count{
+                    self.badge_count = "\(temp_count)"
+                    self.badgeLbl.text = "\(temp_count)"
                 }
-            }.catch { (error) in
-                print(error)
-                hideActivityIndicator(uiView: self)
+                if from == "addon"{
+                    AlertMsg(Msg: "Product updated successfully", title: "Message", vc: self)
+                }
+            }else{
+                //                 AlertMsg(Msg: message, title: "Alert", vc: self)
+                self.badgeLbl.text = "0"
             }
+        }.catch { (error) in
+            print(error)
+            hideActivityIndicator(uiView: self)
+        }
     }
-
-
-
+    
+    
+    
     
     func createBanner(){
         pagerView.automaticSlidingInterval = 3.0
@@ -315,10 +352,10 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
         pagerView.isInfinite = true
         pagerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "cell")
         // Create a page control
-//                pageControl.currentPage = 1
-//        self.pageControl.numberOfPages = self.bannerArray.count
+        //                pageControl.currentPage = 1
+        //        self.pageControl.numberOfPages = self.bannerArray.count
     }
-   
+    
     
     @IBAction func tapOnSearchBtn(_ sender: Any) {
         let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "SearchViewController") as! SearchViewController
@@ -346,11 +383,11 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
         }else{
             goToNextVcThroughNavigation(currentVC: self, nextVCname: "LoginViewController", nextVC: LoginViewController.self)
         }
-       
+        
     }
     
     @IBAction func tapOnPlusBtn(_ sender: UIButton) {
-       
+        
         let i = sender.tag
         var cart_index = 0
         let cell = pro_table.cellForRow(at: IndexPath(row: i, section: 0)) as! ProTableViewCell
@@ -402,7 +439,7 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
             self.cart_lists[cart_index].pro_amount = String(totalamount)
             self.cart_lists[cart_index].pro_qty = String(productQty)
             self.badgeLbl.text = "\(self.cart_lists.count)"
-
+            
         }
     }
     
@@ -416,10 +453,11 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
     }
     
     @IBAction func tapOnDeliveryBtn(_ sender: Any) {
-        self.deliveryBtn.backgroundColor = .white
-        self.pickUpBtn.backgroundColor = .clear
-        self.table_top.backgroundColor = .clear
-        mode_of_delivery = "2"
+//        self.deliveryBtn.backgroundColor = .white
+//        self.pickUpBtn.backgroundColor = .clear
+//        self.table_top.backgroundColor = .clear
+//        mode_of_delivery = "2"
+        showToast(message: "Currently we are not providing this feature.", font: UIFont.systemFont(ofSize: 15))
         
     }
     
@@ -435,7 +473,7 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
         let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "CategoryViewController") as! CategoryViewController
         vc.cart_data = self.cart_lists
         self.navigationController?.pushViewController(vc, animated: true)
-
+        
     }
     
     @IBAction func tapOnBookTable(_ sender: Any) {
@@ -444,9 +482,9 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
     }
     
     @IBAction func tapOnViewAll(_ sender: Any) {
-//        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "CategoryViewController") as! CategoryViewController
-//        vc.cart_data = self.cart_lists
-//        self.navigationController?.pushViewController(vc, animated: true)
+        //        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "CategoryViewController") as! CategoryViewController
+        //        vc.cart_data = self.cart_lists
+        //        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func tapOnHomeBtn(_ sender: Any) {
@@ -459,17 +497,17 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
     @IBAction func tapOnProfileBtn(_ sender: Any) {
         if user_id != "" {
             goToNextVcThroughNavigation(currentVC: self, nextVCname: "MyAccountViewController", nextVC: MyAccountViewController.self)
-
+            
         }else{
             goToNextVcThroughNavigation(currentVC: self, nextVCname: "LoginViewController", nextVC: LoginViewController.self)
-
+            
         }
-
+        
     }
     
     @IBAction func tapOnCartBTn(_ sender: Any) {
-            let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "CartViewController") as! CartViewController
-            self.navigationController?.pushViewController(vc, animated: true)
+        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "CartViewController") as! CartViewController
+        self.navigationController?.pushViewController(vc, animated: true)
         
     }
     
@@ -485,7 +523,7 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
             cell.imageView?.kf.setImage(with: url)
         }
         cell.imageView?.viewBorder(radius: 10, color: .clear, borderWidth: 0)
-
+        
         
         return cell
     }
@@ -497,13 +535,13 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
     }
     
     func pagerViewWillEndDragging(_ pagerView: FSPagerView, targetIndex: Int) {
-//                self.pageControl.currentPage = targetIndex
+        //                self.pageControl.currentPage = targetIndex
     }
     
     func pagerViewDidEndScrollAnimation(_ pagerView: FSPagerView) {
-//                self.pageControl.currentPage = pagerView.currentIndex
+        //                self.pageControl.currentPage = pagerView.currentIndex
     }
-
+    
 }
 
 
@@ -512,33 +550,33 @@ extension  ViewController : UITableViewDataSource {
         return products_arr.count
     }
     
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            
-            let cell:ProTableViewCell = tableView.dequeueReusableCell(withIdentifier: "pro_cell") as! ProTableViewCell
-            cell.product_view.setCardView()
-            cell.addBtn.viewBorder(radius: 10, color: .clear, borderWidth: 0)
-            cell.pro_image.viewBorder(radius: 5, color: .clear, borderWidth: 0)
-            cell.addBtn.tag = indexPath.row
-            if let item_list = self.products_arr[indexPath.row].item_list{
-                if item_list.count != 0 {
-                    cell.addBtn.setTitle(title: "Add+")
-                }
-                else{
-                    cell.addBtn.setTitle(title: "Add")
-                }
+        let cell:ProTableViewCell = tableView.dequeueReusableCell(withIdentifier: "pro_cell") as! ProTableViewCell
+        cell.product_view.setCardView()
+        cell.addBtn.viewBorder(radius: 10, color: .clear, borderWidth: 0)
+        cell.pro_image.viewBorder(radius: 5, color: .clear, borderWidth: 0)
+        cell.addBtn.tag = indexPath.row
+        if let item_list = self.products_arr[indexPath.row].item_list{
+            if item_list.count != 0 {
+                cell.addBtn.setTitle(title: "Add+")
             }
-            
-             let item = self.products_arr[indexPath.row]
-                cell.bind_data(item: item)
-            
-
-            
-            return cell
+            else{
+                cell.addBtn.setTitle(title: "Add")
+            }
         }
-
+        
+        let item = self.products_arr[indexPath.row]
+        cell.bind_data(item: item)
+        
+        
+        
+        return cell
+    }
     
     
-
+    
+    
 }
 

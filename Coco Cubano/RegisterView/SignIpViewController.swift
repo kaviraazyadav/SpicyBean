@@ -55,8 +55,17 @@ class SignIpViewController: UIViewController {
         let cnf_pswd = self.cnfPswdTxt.text ?? ""
         if user_name != "" && email != "" && mobile != "" && pswd != "" && cnf_pswd != "" {
             if pswd == cnf_pswd {
-                
-                callSignupApi(param: ["userName":user_name,"mobile":mobile,"email":email,"userPassword":pswd,"confirmPassword":cnf_pswd])
+                if isValidEmail(email: email) == true{
+                    if isValidPassword(pswd: pswd) == true {
+                        callSignupApi(param: ["userName":user_name,"mobile":mobile,"email":email,"userPassword":pswd,"confirmPassword":cnf_pswd])
+
+                    }else{
+                        AlertMsg(Msg: "Your Password should be minimum 6 characters at least 1 Uppercase, 1 Lowercase and 1 Number and 1 Special character", title: "Alert", vc: self)
+                    }
+                }else {
+                    showToast(message: "Please enter valid email", font: UIFont.systemFont(ofSize: 14))
+                }
+               
             }else {
                 AlertMsg(Msg: "Password and Confirm password does not match", title: "Alert!", vc: self)
 
@@ -118,6 +127,17 @@ class SignIpViewController: UIViewController {
     
     @IBAction func tapOnSignUpBtn(_ sender: Any) {
         self.sign_up_validation()
+    }
+    
+}
+extension SignIpViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let maxLength = 10
+        
+        let currentString: NSString = (textField.text ?? "") as NSString
+        let newString: NSString =
+        currentString.replacingCharacters(in: range, with: string) as NSString
+        return newString.length <= maxLength
     }
     
 }

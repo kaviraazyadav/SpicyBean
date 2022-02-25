@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
  *
  * This source code is licensed under the license found in the
@@ -70,7 +70,7 @@ NS_SWIFT_NAME(GraphRequestConnection)
  By default, a connection is scheduled on the current thread in the default mode when it is created.
  You cannot reschedule a connection after it has started.
  */
-@property (nonatomic, retain) NSOperationQueue *delegateQueue;
+@property (nullable, nonatomic) NSOperationQueue *delegateQueue;
 
 /**
  @methodgroup Class methods

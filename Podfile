@@ -15,6 +15,8 @@ pod 'GoogleSignIn'
 pod 'FBSDKLoginKit'
 pod 'Firebase/Analytics'
 pod 'Firebase/Crashlytics'
+pod 'Firebase/Messaging'
+pod 'AppCenter'
   # Pods for Coco Cubano
 
   target 'Coco CubanoTests' do

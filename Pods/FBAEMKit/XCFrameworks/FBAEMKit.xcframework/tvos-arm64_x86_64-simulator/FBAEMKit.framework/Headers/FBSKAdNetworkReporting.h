@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  * All rights reserved.
  *
  * This source code is licensed under the license found in the
@@ -18,6 +18,8 @@ NS_SWIFT_NAME(SKAdNetworkReporting)
 - (BOOL)shouldCutoff;
 
 - (BOOL)isReportingEvent:(NSString *)event;
+
+- (void)checkAndRevokeTimer;
 
 @end
 
