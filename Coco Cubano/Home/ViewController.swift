@@ -63,7 +63,6 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         mode_of_delivery = "1"
         searchBtn.contentHorizontalAlignment = .left
         self.notificationHits()
@@ -178,7 +177,6 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
         DispatchQueue.main.async {
             self.scrollView.contentInsetAdjustmentBehavior = .never
             let count = self.products_arr.count
-//            self.scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + CGFloat (Double(count) * 120))
             self.tableViewHeight.constant = CGFloat (Double(count) * 120)
             self.contentViewHeight.constant = self.view.frame.size.height + self.tableViewHeight.constant - 950
         }
@@ -351,9 +349,6 @@ class ViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate
         pagerView.delegate = self
         pagerView.isInfinite = true
         pagerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "cell")
-        // Create a page control
-        //                pageControl.currentPage = 1
-        //        self.pageControl.numberOfPages = self.bannerArray.count
     }
     
     
