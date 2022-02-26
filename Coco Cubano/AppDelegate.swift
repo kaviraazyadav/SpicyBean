@@ -13,6 +13,10 @@ import FBSDKCoreKit
 import Firebase
 import FirebaseAnalytics
 import CoreLocation
+import AppCenter
+import AppCenterAnalytics
+import AppCenterCrashes
+
 var user_lat = ""
 var user_long = ""
 @main
