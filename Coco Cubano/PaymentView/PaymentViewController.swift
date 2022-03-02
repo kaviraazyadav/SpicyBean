@@ -7,9 +7,12 @@
 
 import UIKit
 import WebKit
+import PassKit
 class PaymentViewController: UIViewController {
 
     @IBOutlet weak var webview: WKWebView!
+    
+    @IBOutlet weak var applePay: UIButton!
     
     var item_qtyArr = [String]()
     var item_priceArr = [String]()
@@ -29,6 +32,17 @@ class PaymentViewController: UIViewController {
     var saved_order_id = ""
     
     var timer = Timer()
+    private var paymentRequest: PKPaymentRequest = {
+            let request = PKPaymentRequest()
+            request.merchantIdentifier = "merchant.testpayment.com"
+            request.supportedNetworks = [.visa, .masterCard,.amex,.discover]
+            request.supportedCountries = ["IN","US","AU"]
+            request.merchantCapabilities = .capability3DS
+            request.countryCode = "AU"
+            request.currencyCode = "AUD"
+//        request.paymentSummaryItems = [PKPaymentSummaryItem(label: "Spicy Bean Cafe Payment", amount:NSDecimalNumber(string: sub_total))]
+            return request
+        }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +51,8 @@ class PaymentViewController: UIViewController {
         if table_number == ""{
             table_number = "100"
         }
+        paymentRequest.paymentSummaryItems = [PKPaymentSummaryItem(label: "Spicy Bean Cafe", amount:NSDecimalNumber(string: sub_total))]
+
 
     }
     func save_order(){
@@ -151,7 +167,7 @@ class PaymentViewController: UIViewController {
                             goToNextVcThroughNavigation(currentVC: self, nextVCname: "FailureViewController", nextVC: FailureViewController.self)
 
                         }else if paymen_s == 1{
-                            self.callPaymentStatusApi(param: ["order_id":self.saved_order_id])
+//                            self.callPaymentStatusApi(param: ["order_id":self.saved_order_id])
                         }else{
 //                            self.timer.invalidate()
                             let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "FailureViewController") as? FailureViewController
@@ -175,10 +191,28 @@ class PaymentViewController: UIViewController {
         goBack(vc: self)
     }
     
+    
+    @IBAction func tapOnApplePay(_ sender: Any) {
+        if let controller = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest) {
+            controller.delegate = self
+            present(controller, animated: true, completion: nil)
+        }
+    }
 }
 extension PaymentViewController: WKNavigationDelegate {
      func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!){
         print("Finished loading")
         hideActivityIndicator(uiView: self)
     }
+}
+extension PaymentViewController: PKPaymentAuthorizationViewControllerDelegate {
+ 
+    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
+        completion(PKPaymentAuthorizationResult(status: .success, errors: nil))
+    }
+ 
+    func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+ 
 }

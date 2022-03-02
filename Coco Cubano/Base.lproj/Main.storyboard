@@ -734,7 +734,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Categories" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Qa-Ky-GS1">
-                                        <rect key="frame" x="72" y="68" width="124.66666666666669" height="24"/>
+                                        <rect key="frame" x="72" y="68" width="123.33333333333331" height="24"/>
                                         <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -1039,7 +1039,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cocktails" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ejd-iS-Gtk">
-                                        <rect key="frame" x="72" y="68" width="83" height="24"/>
+                                        <rect key="frame" x="72" y="68" width="80" height="24"/>
                                         <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -2100,7 +2100,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="112"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Register" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGw-sQ-iZu">
-                                        <rect key="frame" x="72" y="68" width="74.333333333333314" height="24"/>
+                                        <rect key="frame" x="72" y="68" width="72.666666666666686" height="24"/>
                                         <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -2295,7 +2295,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="112"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I69-Pa-Ek6">
-                                        <rect key="frame" x="71.999999999999986" y="68" width="152.66666666666663" height="24"/>
+                                        <rect key="frame" x="72.000000000000014" y="68" width="148.33333333333337" height="24"/>
                                         <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -2395,7 +2395,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="112"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IBB-E2-zfg">
-                                        <rect key="frame" x="72" y="68" width="107.66666666666669" height="24"/>
+                                        <rect key="frame" x="72" y="68" width="103.66666666666669" height="24"/>
                                         <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -2746,7 +2746,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="112"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a3S-d1-t5g">
-                                        <rect key="frame" x="72" y="68" width="164" height="24"/>
+                                        <rect key="frame" x="72.000000000000014" y="68" width="159.33333333333337" height="24"/>
                                         <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -2892,7 +2892,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Cart" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SFN-uL-6Y6">
-                                        <rect key="frame" x="72" y="68" width="71.333333333333314" height="24"/>
+                                        <rect key="frame" x="72" y="68" width="68" height="24"/>
                                         <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -3381,7 +3381,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="112"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Checkout" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BIT-Z0-BkT">
-                                        <rect key="frame" x="72" y="68" width="86.333333333333314" height="24"/>
+                                        <rect key="frame" x="72" y="68" width="84.333333333333314" height="24"/>
                                         <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -4128,7 +4128,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="112"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JQR-gy-0OR">
-                                        <rect key="frame" x="72" y="68" width="79" height="24"/>
+                                        <rect key="frame" x="72" y="68" width="76.666666666666686" height="24"/>
                                         <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -4146,10 +4146,20 @@
                                             <action selector="tapOnBack:" destination="XKV-AJ-1Td" eventType="touchUpInside" id="IzM-Mo-WzQ"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sRH-aO-BcT">
+                                        <rect key="frame" x="317" y="55" width="50" height="50"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="apple_pay"/>
+                                        <connections>
+                                            <action selector="tapOnApplePay:" destination="XKV-AJ-1Td" eventType="touchUpInside" id="1J1-XR-Ixs"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.9882352941176471" green="0.70588235294117641" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="sRH-aO-BcT" secondAttribute="bottom" constant="7" id="0t3-mO-Y8L"/>
                                     <constraint firstAttribute="bottom" secondItem="JQR-gy-0OR" secondAttribute="bottom" constant="20" id="8Lp-8f-ZV2"/>
+                                    <constraint firstAttribute="trailing" secondItem="sRH-aO-BcT" secondAttribute="trailing" constant="8" id="9Cy-Wa-XuW"/>
                                     <constraint firstAttribute="height" constant="112" id="DN0-KC-3j9"/>
                                     <constraint firstAttribute="bottom" secondItem="Upe-LG-xCh" secondAttribute="bottom" constant="12" id="Utf-rL-OFv"/>
                                     <constraint firstItem="JQR-gy-0OR" firstAttribute="top" secondItem="bme-16-xof" secondAttribute="top" constant="68" id="oWz-w9-zGP"/>
@@ -4180,6 +4190,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="applePay" destination="sRH-aO-BcT" id="Q2R-qI-UG2"/>
                         <outlet property="webview" destination="hvL-OF-2oJ" id="BcS-EJ-4nA"/>
                     </connections>
                 </viewController>
@@ -4365,7 +4376,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="112"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Orders" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2hG-1f-dtJ">
-                                        <rect key="frame" x="72" y="68" width="94" height="24"/>
+                                        <rect key="frame" x="72" y="68" width="92" height="24"/>
                                         <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -5226,7 +5237,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product Search" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TqK-WS-tT9">
-                                        <rect key="frame" x="72" y="68" width="139" height="24"/>
+                                        <rect key="frame" x="72.000000000000014" y="68" width="134.33333333333337" height="24"/>
                                         <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -5422,6 +5433,7 @@
     <resources>
         <image name="BlurImg" width="400" height="240"/>
         <image name="Table" width="50" height="50"/>
+        <image name="apple_pay" width="50" height="50"/>
         <image name="arrow.backward" catalog="system" width="128" height="98"/>
         <image name="bag" width="25" height="25"/>
         <image name="cart" width="50" height="50"/>
