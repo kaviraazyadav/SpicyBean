@@ -20,7 +20,7 @@ class SuccessViewController: UIViewController {
     }
     
     @IBAction func tapOnViewOrder(_ sender: Any) {
-        
+        goToNextVcThroughNavigation(currentVC: self, nextVCname: "ViewController", nextVC: ViewController.self)
     }
     
 

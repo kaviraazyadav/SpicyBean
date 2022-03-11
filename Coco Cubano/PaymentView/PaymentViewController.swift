@@ -167,7 +167,7 @@ class PaymentViewController: UIViewController {
                             goToNextVcThroughNavigation(currentVC: self, nextVCname: "FailureViewController", nextVC: FailureViewController.self)
 
                         }else if paymen_s == 1{
-//                            self.callPaymentStatusApi(param: ["order_id":self.saved_order_id])
+                            self.callPaymentStatusApi(param: ["order_id":self.saved_order_id])
                         }else{
 //                            self.timer.invalidate()
                             let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "FailureViewController") as? FailureViewController
@@ -181,7 +181,8 @@ class PaymentViewController: UIViewController {
                 print(error)
                 hideActivityIndicator(uiView: self)
                 self.timer.invalidate()
-                goToNextVc(currentVC: self, nextVCname: "FailureViewController.self", nextVC: FailureViewController.self)
+                let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "FailureViewController") as? FailureViewController
+                self.navigationController?.pushViewController(vc!, animated: true)
             }
     }
 
